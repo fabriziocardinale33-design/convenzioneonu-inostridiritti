@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I Nostri Diritti • Convenzione ONU sui Diritti dell'Infanzia e dell'Adolescenza</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Fredoka (titoli giocosi e leggibili) & Inter (testi chiari) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tone.js per effetti sonori delicati e opzionali nei giochi e nell'attestato -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FFFDF9',
+            navy: '#1D3557',
+            coral: '#E2231A',
+            unicef: '#00AEEF',
+            sunny: '#FFD166',
+            mint: '#06D6A0',
+            softblue: '#EBF8FF',
+            softcoral: '#FFF0EF',
+            softmint: '#E6FBF4',
+            softyellow: '#FFF9E6'
+          },
+          fontFamily: {
+            display: ['Fredoka', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          },
+          boxShadow: {
+            'playful': '0 8px 0 rgba(29, 53, 87, 0.12)',
+            'playful-lg': '0 12px 0 rgba(29, 53, 87, 0.14)',
+            'card': '0 10px 25px -5px rgba(29, 53, 87, 0.08), 0 4px 10px -2px rgba(29, 53, 87, 0.04)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Stili personalizzati per animazioni giocose, carte memory 3D e stampa attestato */
+    body {
+      background-color: #FFFDF9;
+      color: #1D3557;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      padding-bottom: 5.25rem;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(1.5deg); }
+    }
+
+    @keyframes pulseGentle {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+
+    .animate-float {
+      animation: floatSlow 4.5s ease-in-out infinite;
+    }
+
+    .animate-pulse-gentle {
+      animation: pulseGentle 3s ease-in-out infinite;
+    }
+
+    /* Carte Memory 3D */
+    .memory-card-perspective {
+      perspective: 1000px;
+    }
+    .memory-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+    .memory-card.flipped .memory-card-inner,
+    .memory-card.matched .memory-card-inner {
+      transform: rotateY(180deg);
+    }
+    .memory-card-front,
+    .memory-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 1.25rem;
+    }
+    .memory-card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Pattern decorativo a pois delicati */
+    .bg-dots {
+      background-image: radial-gradient(#1D3557 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Barre equalizzatore animate per il Player Vocale */
+    @keyframes eqBar {
+      0%, 100% { height: 6px; }
+      50% { height: 18px; }
+    }
+    .eq-bar {
+      width: 3px;
+      height: 6px;
+      border-radius: 9999px;
+      background-color: #FFD166;
+    }
+    .eq-playing .eq-bar:nth-child(1) { animation: eqBar 0.7s ease-in-out infinite; }
+    .eq-playing .eq-bar:nth-child(2) { animation: eqBar 0.55s ease-in-out 0.15s infinite; }
+    .eq-playing .eq-bar:nth-child(3) { animation: eqBar 0.8s ease-in-out 0.3s infinite; }
+    .eq-playing .eq-bar:nth-child(4) { animation: eqBar 0.6s ease-in-out 0.1s infinite; }
+
+    /* Stili di stampa dedicati per l'Attestato */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 10mm;
+      }
+      html, body {
+        background: #FFFFFF !important;
+        padding-bottom: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body * {
+        visibility: hidden !important;
+      }
+      #certificate-printable,
+      #certificate-printable * {
+        visibility: visible !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      #certificate-printable {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1.5rem !important;
+        box-shadow: none !important;
+        border: 8px solid #00AEEF !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sunny selection:text-navy">
+
+  <!-- Canvas Coriandoli per celebrazioni (Giochi e Attestato) -->
+  <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full"></canvas>
+
+  <!-- Toast Notifica non intrusiva -->
+  <div id="toast-banner" class="fixed bottom-24 right-5 z-[70] transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none max-w-sm">
+    <div class="bg-navy text-white px-5 py-3.5 rounded-2xl shadow-xl border-2 border-sunny flex items-center gap-3">
+      <span id="toast-icon" class="text-xl">✨</span>
+      <p id="toast-text" class="text-sm font-medium leading-snug"></p>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PLAYER AUDIO FLOTTANTE SEMPRE VISIBILE                                -->
+  <!-- ===================================================================== -->
+  <div
+    id="narrator-bar"
+    class="fixed bottom-3 left-1/2 -translate-x-1/2 z-[60] w-[calc(100vw-1.5rem)] max-w-2xl bg-navy/95 backdrop-blur-md text-white px-4 py-3 rounded-2xl shadow-2xl border-2 border-unicef transition-all duration-300"
+    role="region"
+    aria-label="Lettore vocale dei diritti"
+  >
+    <div class="w-full h-1.5 bg-white/15 rounded-full overflow-hidden mb-2.5">
+      <div id="narrator-progress-bar" class="h-full bg-gradient-to-r from-unicef via-mint to-sunny transition-all duration-300 rounded-full" style="width: 0%"></div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-unicef text-white flex flex-col items-center justify-center shrink-0 shadow-inner" id="narrator-avatar-badge">
+        <div id="narrator-eq" class="flex items-end gap-0.5 h-5">
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+        </div>
+      </div>
+
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-sunny truncate" id="narrator-voice-tag">
+            Lettore Vocale Italiano
+          </span>
+          <span id="narrator-status-pill" class="px-2 py-0.5 rounded-full bg-white/15 text-[10px] font-bold text-white/90 shrink-0">
+            Pronto
+          </span>
+        </div>
+        <p class="text-xs sm:text-sm font-semibold text-white truncate mt-0.5" id="narrator-now-reading">
+          Premi «🎙️ Ascolta» su qualsiasi sezione o articolo
+        </p>
+      </div>
+
+      <div class="flex items-center gap-1.5 shrink-0">
+        <button type="button" id="narrator-play-demo-btn" title="Ascolta presentazione" class="px-3 h-9 rounded-xl bg-unicef hover:bg-sky-400 text-white font-display font-bold text-xs flex items-center gap-1 transition-colors">
+          <span>▶️</span>
+          <span class="hidden sm:inline">Ascolta</span>
+        </button>
+        <button type="button" id="narrator-pause-btn" title="Pausa / Riprendi lettura" class="hidden w-9 h-9 rounded-xl bg-unicef hover:bg-sky-400 text-white font-bold text-sm items-center justify-center transition-colors">
+          ⏸️
+        </button>
+        <button type="button" id="narrator-stop-btn" title="Interrompi lettura" class="hidden w-9 h-9 rounded-xl bg-coral hover:bg-red-500 text-white font-bold text-sm items-center justify-center transition-colors">
+          ⏹️
+        </button>
+        <button type="button" id="narrator-speed-btn" title="Cambia velocità di lettura" class="px-2.5 h-9 rounded-xl bg-white/15 hover:bg-sunny hover:text-navy text-white font-bold text-xs transition-colors">
+          1.0x
+        </button>
+        <button type="button" id="narrator-gear-btn" title="Scegli voce italiana" class="w-9 h-9 rounded-xl bg-white/15 hover:bg-white/25 text-white font-bold text-sm flex items-center justify-center transition-colors">
+          ⚙️
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Impostazioni Voce Narrante Italiana -->
+  <div id="voice-settings-modal" class="fixed inset-0 z-[65] hidden items-center justify-center p-4 bg-navy/70 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="voice-modal-title">
+    <div class="bg-white rounded-[2rem] max-w-lg w-full max-h-[88vh] overflow-y-auto border-4 border-unicef shadow-2xl p-6 sm:p-7 relative space-y-5">
+      <button type="button" id="close-voice-modal-btn" aria-label="Chiudi impostazioni voce" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-cream border-2 border-navy/15 text-navy font-bold hover:bg-coral hover:text-white transition-colors flex items-center justify-center">✕</button>
+
+      <div class="flex items-center gap-3 pr-8">
+        <div class="w-12 h-12 rounded-2xl bg-softblue text-unicef flex items-center justify-center text-2xl border-2 border-unicef/30">🎙️</div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-unicef">Riproduzione Istantanea</span>
+          <h3 id="voice-modal-title" class="font-display font-bold text-2xl text-navy">Voce Narrante Italiana</h3>
+        </div>
+      </div>
+
+      <p class="text-sm text-navy/80 leading-relaxed">
+        Il lettore seleziona automaticamente la <strong>migliore voce femminile italiana naturale</strong> disponibile sul tuo dispositivo con ottimizzazione della cadenza e zero attese.
+      </p>
+
+      <div class="space-y-2">
+        <label for="system-voice-select" class="block font-display font-bold text-sm text-navy">Voce Italiana Selezionata</label>
+        <select id="system-voice-select" class="w-full px-3.5 py-3 rounded-xl bg-cream border-2 border-navy/15 text-navy text-sm font-semibold focus:outline-none focus:border-unicef">
+          <option value="">Caricamento voci italiane...</option>
+        </select>
+      </div>
+
+      <div class="space-y-2">
+        <span class="block font-display font-bold text-sm text-navy">Intonazione della Narratrice</span>
+        <div class="grid grid-cols-3 gap-2" id="voice-pitch-group">
+          <button type="button" data-pitch="0.98" class="voice-pitch-btn py-2 px-3 rounded-xl border-2 border-navy/15 bg-cream text-navy text-xs font-bold hover:border-unicef">🌿 Calda</button>
+          <button type="button" data-pitch="1.04" class="voice-pitch-btn active py-2 px-3 rounded-xl border-2 border-unicef bg-softblue text-unicef text-xs font-bold">🌸 Naturale</button>
+          <button type="button" data-pitch="1.10" class="voice-pitch-btn py-2 px-3 rounded-xl border-2 border-navy/15 bg-cream text-navy text-xs font-bold hover:border-unicef">✨ Vivace</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <span class="block font-display font-bold text-sm text-navy">Ritmo di lettura</span>
+        <div class="grid grid-cols-3 gap-2" id="voice-rate-group">
+          <button type="button" data-rate="0.86" class="voice-rate-btn py-2 px-3 rounded-xl border-2 border-navy/15 bg-cream text-navy text-xs font-bold hover:border-unicef">🐢 Lento (0.9x)</button>
+          <button type="button" data-rate="0.96" class="voice-rate-btn active py-2 px-3 rounded-xl border-2 border-unicef bg-softblue text-unicef text-xs font-bold">🚶 Naturale (1.0x)</button>
+          <button type="button" data-rate="1.08" class="voice-rate-btn py-2 px-3 rounded-xl border-2 border-navy/15 bg-cream text-navy text-xs font-bold hover:border-unicef">🐇 Vivace (1.1x)</button>
+        </div>
+      </div>
+
+      <details class="bg-cream rounded-2xl p-3.5 border border-navy/15">
+        <summary class="font-display font-bold text-xs text-navy/80 cursor-pointer select-none">🔑 Opzionale: Collega chiave API ElevenLabs (Ultra-HD)</summary>
+        <div class="mt-3 space-y-2">
+          <p class="text-xs text-navy/70">Se possiedi una chiave API ElevenLabs, incollala qui per usare una voce neurale da studio in italiano:</p>
+          <input type="password" id="elevenlabs-key-input" placeholder="sk_..." class="w-full px-3 py-2 rounded-xl bg-white border border-navy/20 text-xs text-navy focus:outline-none focus:border-unicef" />
+        </div>
+      </details>
+
+      <div class="flex items-center justify-between gap-3 pt-2">
+        <button type="button" id="test-voice-btn" class="px-4 py-2.5 rounded-xl bg-mint text-navy font-display font-bold text-sm hover:bg-emerald-400 transition-colors flex items-center gap-2"><span>▶️ Prova la Voce</span></button>
+        <button type="button" id="done-voice-modal-btn" class="px-5 py-2.5 rounded-xl bg-unicef text-white font-display font-bold text-sm hover:bg-sky-500 transition-colors">Fatto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 1. HEADER & NAVIGAZIONE FISSA                                         -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-md border-b-2 border-navy/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="#hero" class="flex items-center gap-3 group focus:outline-none">
+          <div class="w-12 h-12 rounded-2xl bg-unicef flex items-center justify-center shadow-md group-hover:scale-105 transition-transform relative overflow-hidden">
+            <svg viewBox="0 0 64 64" class="w-10 h-10" fill="none" aria-hidden="true">
+              <circle cx="32" cy="32" r="24" fill="#FFD166" opacity="0.25"/>
+              <circle cx="23" cy="22" r="5" fill="#FFFFFF"/>
+              <circle cx="41" cy="22" r="5" fill="#FFD166"/>
+              <path d="M13 42C15 33 21 30 23 30C25 30 29 32 32 36C35 32 39 30 41 30C43 30 49 33 51 42" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+              <path d="M27 15L32 10L37 15" stroke="#FFD166" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <span class="font-display font-bold text-xl sm:text-2xl text-navy tracking-tight block leading-none">
+              I Nostri <span class="text-coral">Diritti</span>
+            </span>
+            <span class="text-[11px] font-semibold uppercase tracking-wider text-unicef">
+              Convenzione ONU • 0–18 Anni
+            </span>
+          </div>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-1.5" aria-label="Navigazione principale">
+          <a href="#hero" class="px-3.5 py-2 rounded-xl text-sm font-bold text-navy hover:bg-softblue hover:text-unicef transition-colors">Presentazione</a>
+          <a href="#principi" class="px-3.5 py-2 rounded-xl text-sm font-bold text-navy hover:bg-softblue hover:text-unicef transition-colors">I 4 Principi</a>
+          <a href="#articoli" class="px-3.5 py-2 rounded-xl text-sm font-bold text-navy hover:bg-softcoral hover:text-coral transition-colors">Articoli</a>
+          <a href="#video" class="px-3.5 py-2 rounded-xl text-sm font-bold text-navy hover:bg-softyellow hover:text-amber-800 transition-colors">Video</a>
+          <a href="#giochi" class="px-3.5 py-2 rounded-xl text-sm font-bold text-navy hover:bg-softmint hover:text-emerald-700 transition-colors">Gioco</a>
+          <a href="#attestato" class="ml-1 px-4 py-2 rounded-xl text-sm font-bold bg-coral text-white hover:bg-red-600 transition-colors shadow-sm">🏅 Attestato</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <button id="voice-settings-btn" type="button" title="Impostazioni Voce Narrante Italiana" class="p-2.5 rounded-xl border-2 border-unicef/30 bg-softblue text-navy hover:bg-unicef hover:text-white transition-colors flex items-center gap-1.5 text-xs font-bold">
+            <span class="text-base">🎙️</span>
+            <span class="hidden sm:inline">Voce IT</span>
+          </button>
+
+          <button id="sound-toggle-btn" type="button" title="Attiva/Disattiva suoni giocosi" class="p-2.5 rounded-xl border-2 border-navy/15 bg-white text-navy hover:border-unicef hover:text-unicef transition-colors flex items-center gap-1.5 text-xs font-bold" aria-pressed="true">
+            <span id="sound-icon" class="text-base">🔊</span>
+            <span class="hidden md:inline" id="sound-label">Audio ON</span>
+          </button>
+
+          <button id="mobile-menu-btn" type="button" class="lg:hidden p-2.5 rounded-xl border-2 border-navy/15 bg-white text-navy hover:bg-softblue" aria-label="Apri menu" aria-expanded="false">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden lg:hidden bg-cream border-t-2 border-navy/10 px-4 pt-3 pb-5 space-y-2 shadow-lg">
+      <a href="#hero" class="mobile-nav-link block px-4 py-3 rounded-xl font-semibold text-navy hover:bg-softblue">🏠 Presentazione</a>
+      <a href="#principi" class="mobile-nav-link block px-4 py-3 rounded-xl font-semibold text-navy hover:bg-softblue">🌟 I 4 Principi Fondamentali</a>
+      <a href="#articoli" class="mobile-nav-link block px-4 py-3 rounded-xl font-semibold text-navy hover:bg-softcoral">📖 Esplora gli Articoli</a>
+      <a href="#video" class="mobile-nav-link block px-4 py-3 rounded-xl font-semibold text-navy hover:bg-softyellow">🎬 Video: Il Rap dei Diritti</a>
+      <a href="#giochi" class="mobile-nav-link block px-4 py-3 rounded-xl font-semibold text-navy hover:bg-softmint">🎮 Giochi Interattivi</a>
+      <a href="#attestato" class="mobile-nav-link block px-4 py-3 rounded-xl font-bold bg-coral text-white text-center">🏅 Crea il Tuo Attestato</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================================================================== -->
+    <!-- 2. HERO SECTION ACCATTIVANTE                                          -->
+    <!-- ===================================================================== -->
+    <section id="hero" class="relative overflow-hidden pt-10 pb-16 sm:pt-14 sm:pb-24">
+      <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sunny/30 blur-3xl pointer-events-none"></div>
+      <div class="absolute top-1/2 -left-24 w-80 h-80 rounded-full bg-unicef/15 blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex flex-wrap items-center gap-2 bg-white border-2 border-unicef/30 px-4 py-2 rounded-full shadow-sm">
+              <span class="w-2.5 h-2.5 rounded-full bg-mint animate-ping"></span>
+              <span class="text-xs sm:text-sm font-bold text-navy">
+                Ispirato alla guida illustrata Save the Children &amp; UNICEF
+              </span>
+            </div>
+
+            <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-[3.4rem] text-navy leading-[1.12] tracking-tight">
+              I Nostri Diritti: la <span class="text-unicef underline decoration-sunny decoration-wavy decoration-4 underline-offset-8">Convenzione ONU</span> sui Diritti dell'Infanzia e dell'Adolescenza
+            </h1>
+
+            <p class="text-base sm:text-lg text-navy/85 leading-relaxed max-w-2xl">
+              Approvata dall'Assemblea Generale delle Nazioni Unite il <strong class="text-coral font-bold">20 novembre 1989</strong> e ratificata dall'Italia nel <strong class="text-navy font-bold">1991</strong>, la Convenzione è una promessa fatta dai grandi a tutti i bambini e i ragazzi del mondo: <strong class="bg-sunny/60 px-1.5 py-0.5 rounded-lg">54 articoli</strong> che riconoscono a chiunque abbia meno di 18 anni diritti fondamentali, universali e inalienabili.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+              <div class="bg-white border-2 border-coral/25 rounded-2xl p-3.5 text-center shadow-sm">
+                <span class="font-display font-bold text-2xl sm:text-3xl text-coral block">54</span>
+                <span class="text-xs font-bold uppercase tracking-wide text-navy/75">Articoli</span>
+              </div>
+              <div class="bg-white border-2 border-unicef/25 rounded-2xl p-3.5 text-center shadow-sm">
+                <span class="font-display font-bold text-2xl sm:text-3xl text-unicef block">196</span>
+                <span class="text-xs font-bold uppercase tracking-wide text-navy/75">Paesi</span>
+              </div>
+              <div class="bg-white border-2 border-mint/40 rounded-2xl p-3.5 text-center shadow-sm">
+                <span class="font-display font-bold text-2xl sm:text-3xl text-emerald-600 block">4</span>
+                <span class="text-xs font-bold uppercase tracking-wide text-navy/75">Principi Guida</span>
+              </div>
+              <div class="bg-white border-2 border-sunny rounded-2xl p-3.5 text-center shadow-sm">
+                <span class="font-display font-bold text-2xl sm:text-3xl text-amber-600 block">0–18</span>
+                <span class="text-xs font-bold uppercase tracking-wide text-navy/75">Anni</span>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3.5 pt-2">
+              <a href="#articoli" class="px-6 py-4 rounded-2xl bg-unicef text-white font-display font-bold text-base sm:text-lg shadow-playful hover:bg-sky-500 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>📖 Esplora gli Articoli</span>
+              </a>
+              <a href="#giochi" class="px-6 py-4 rounded-2xl bg-sunny text-navy border-2 border-navy/15 font-display font-bold text-base sm:text-lg shadow-playful hover:bg-amber-300 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                <span>🎮 Inizia a Giocare</span>
+              </a>
+              <button type="button" id="hero-read-btn" class="speak-trigger px-5 py-4 rounded-2xl bg-white text-navy border-2 border-unicef/40 font-display font-bold text-base shadow-sm hover:bg-softblue transition-all flex items-center gap-2">
+                <span>🎙️ Ascolta</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="relative bg-white rounded-[2.25rem] p-6 sm:p-8 border-4 border-navy/10 shadow-card animate-float">
+              <div class="absolute -top-4 -right-3 bg-coral text-white font-display font-bold text-sm px-4 py-1.5 rounded-full shadow-md rotate-3">
+                20 Novembre • Giornata Mondiale!
+              </div>
+
+              <svg viewBox="0 0 420 360" class="w-full h-auto" role="img" aria-label="Illustrazione colorata di bambini intorno al mondo che celebrano i loro diritti">
+                <circle cx="210" cy="195" r="135" fill="#EBF8FF"/>
+                <circle cx="75" cy="70" r="24" fill="#FFD166" opacity="0.85"/>
+                <path d="M310 62C310 53 318 46 327 46C334 46 340 50 343 56C345 55 347 55 350 55C358 55 365 62 365 70C365 78 358 84 350 84H312C303 84 296 77 296 69C296 62 302 56 310 62Z" fill="#00AEEF" opacity="0.25"/>
+                <circle cx="210" cy="210" r="95" fill="#00AEEF"/>
+                <path d="M155 155C170 142 195 148 202 165C208 180 190 195 182 212C175 227 192 246 178 262C162 278 135 258 130 232C125 205 138 170 155 155Z" fill="#06D6A0"/>
+                <path d="M242 140C264 148 286 172 282 198C278 220 255 224 248 242C242 258 254 275 236 284C218 292 208 268 214 246C220 222 216 196 226 172C232 158 232 136 242 140Z" fill="#06D6A0"/>
+                <circle cx="192" cy="205" r="5" fill="#1D3557"/>
+                <circle cx="228" cy="205" r="5" fill="#1D3557"/>
+                <path d="M198 220C204 228 216 228 222 220" stroke="#1D3557" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <circle cx="182" cy="215" r="6" fill="#FF8FA3" opacity="0.7"/>
+                <circle cx="238" cy="215" r="6" fill="#FF8FA3" opacity="0.7"/>
+
+                <g transform="translate(65, 135)">
+                  <rect x="0" y="0" width="46" height="46" rx="14" fill="#FFF0EF" stroke="#E2231A" stroke-width="3"/>
+                  <path d="M23 34C23 34 11 26 11 18C11 14 14 11 18 11C20.5 11 22.2 12.3 23 14C23.8 12.3 25.5 11 28 11C32 11 35 14 35 18C35 26 23 34 23 34Z" fill="#E2231A"/>
+                </g>
+                <g transform="translate(310, 128)">
+                  <rect x="0" y="0" width="48" height="48" rx="14" fill="#FFF9E6" stroke="#FFD166" stroke-width="3"/>
+                  <path d="M12 16C16 14 21 15 24 18C27 15 32 14 36 16V33C32 31 27 32 24 35C21 32 16 31 12 33V16Z" fill="#FFD166" stroke="#1D3557" stroke-width="2" stroke-linejoin="round"/>
+                </g>
+                <g transform="translate(62, 245)">
+                  <rect x="0" y="0" width="48" height="48" rx="14" fill="#E6FBF4" stroke="#06D6A0" stroke-width="3"/>
+                  <path d="M14 24L29 16V32L14 24Z" fill="#06D6A0" stroke="#1D3557" stroke-width="2" stroke-linejoin="round"/>
+                  <rect x="11" y="21" width="5" height="6" rx="2" fill="#1D3557"/>
+                  <path d="M33 19C35 21 35 27 33 29" stroke="#E2231A" stroke-width="2.5" stroke-linecap="round"/>
+                </g>
+                <g transform="translate(312, 242)">
+                  <rect x="0" y="0" width="48" height="48" rx="14" fill="#EBF8FF" stroke="#00AEEF" stroke-width="3"/>
+                  <polygon points="24,10 28,19 38,20 30,27 32,37 24,32 16,37 18,27 10,20 20,19" fill="#FFD166" stroke="#1D3557" stroke-width="2" stroke-linejoin="round"/>
+                </g>
+                <g transform="translate(148, 62)">
+                  <circle cx="24" cy="24" r="12" fill="#F4A261"/>
+                  <path d="M12 22C12 12 36 12 36 22" fill="#1D3557"/>
+                  <path d="M10 54C12 40 36 40 38 54" fill="#E2231A"/>
+                  <circle cx="62" cy="18" r="12" fill="#8D5524"/>
+                  <path d="M50 15C52 7 72 7 74 15" fill="#1D3557"/>
+                  <path d="M48 50C50 35 74 35 76 50" fill="#FFD166"/>
+                  <circle cx="100" cy="24" r="12" fill="#FFDBAC"/>
+                  <circle cx="90" cy="14" r="5" fill="#E2231A"/>
+                  <circle cx="110" cy="14" r="5" fill="#E2231A"/>
+                  <path d="M86 54C88 40 112 40 114 54" fill="#06D6A0"/>
+                  <path d="M34 44L50 40M74 40L90 44" stroke="#1D3557" stroke-width="3.5" stroke-linecap="round"/>
+                </g>
+              </svg>
+
+              <div class="mt-4 bg-cream rounded-2xl p-4 border-2 border-navy/10 flex items-center justify-between gap-3">
+                <p class="text-xs sm:text-sm font-semibold text-navy">
+                  📄 Vuoi sfogliare l'opuscolo originale di Save the Children?
+                </p>
+                <a href="https://s3-www.savethechildren.it/public/files/Convenzione_ONU_sui_diritti_infanzia_adolescenza.pdf" target="_blank" rel="noopener noreferrer" class="shrink-0 px-3.5 py-2 rounded-xl bg-coral text-white text-xs font-bold hover:bg-red-600 transition-colors">
+                  Apri PDF ↗
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. SEZIONE "I 4 PRINCIPI FONDAMENTALI"                                -->
+    <!-- ===================================================================== -->
+    <section id="principi" class="py-16 sm:py-20 bg-white border-y-2 border-navy/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-softblue text-unicef font-bold text-xs uppercase tracking-wider mb-3">
+            Le 4 Colonne della Convenzione
+          </span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-navy mb-4">
+            I 4 Principi Fondamentali
+          </h2>
+          <p class="text-base sm:text-lg text-navy/80">
+            Il Comitato ONU ha individuato <strong>quattro principi guida</strong> che servono a interpretare e applicare tutti gli altri articoli. Clicca su ciascuna card per scoprire cosa significa nella vita di ogni giorno!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8" id="principles-grid">
+          <article class="principle-card bg-softcoral/70 border-3 border-coral/30 rounded-3xl p-6 sm:p-7 shadow-card transition-all hover:-translate-y-1 cursor-pointer" data-principle="0">
+            <div class="flex items-start gap-4">
+              <div class="w-16 h-16 shrink-0 rounded-2xl bg-coral text-white flex items-center justify-center shadow-md">
+                <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none">
+                  <circle cx="16" cy="18" r="5" fill="#FFD166"/>
+                  <circle cx="32" cy="18" r="5" fill="#FFFFFF"/>
+                  <path d="M8 36C9 29 14 26 16 26C18 26 22 28 24 31C26 28 30 26 32 26C34 26 39 29 40 36" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
+                  <path d="M20 12L24 8L28 12" stroke="#FFD166" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-coral text-white text-xs font-bold">Articolo 2</span>
+                  <div class="flex items-center gap-1.5">
+                    <button type="button" data-read-principle="0" class="speak-trigger px-2.5 py-1 rounded-full bg-white text-coral text-xs font-bold border border-coral/25 hover:bg-coral hover:text-white transition-colors" title="Ascolta questo principio">🎙️ Ascolta</button>
+                    <span class="principle-toggle-icon text-coral font-bold text-sm bg-white px-3 py-1 rounded-full border border-coral/20">Scopri +</span>
+                  </div>
+                </div>
+                <h3 class="font-display font-bold text-2xl text-navy mt-2">Non discriminazione</h3>
+                <p class="text-coral font-bold text-sm mt-0.5">«Tutti uguali, nessuno escluso»</p>
+                <p class="text-navy/85 text-sm sm:text-base mt-3 leading-relaxed">
+                  Tutti i diritti della Convenzione valgono per <strong>ogni bambino e ragazzo senza alcuna eccezione</strong>: non importa il colore della pelle, il genere, la lingua, la religione, le opinioni, la disabilità o la situazione economica della famiglia.
+                </p>
+              </div>
+            </div>
+            <div class="principle-details hidden mt-5 pt-4 border-t-2 border-coral/20 bg-white/80 rounded-2xl p-4 space-y-2">
+              <p class="text-sm text-navy"><strong class="text-coral">🏫 A scuola e nel quartiere:</strong> Nessuno può essere preso in giro o lasciato fuori da un gioco o da una gita perché viene da un altro Paese, parla una lingua diversa o ha una disabilità.</p>
+              <p class="text-xs font-semibold text-navy/70">💡 Domanda per riflettere: Come possiamo rendere la nostra classe un posto accogliente per tutti?</p>
+            </div>
+          </article>
+
+          <article class="principle-card bg-softblue/80 border-3 border-unicef/30 rounded-3xl p-6 sm:p-7 shadow-card transition-all hover:-translate-y-1 cursor-pointer" data-principle="1">
+            <div class="flex items-start gap-4">
+              <div class="w-16 h-16 shrink-0 rounded-2xl bg-unicef text-white flex items-center justify-center shadow-md">
+                <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none">
+                  <path d="M24 8L38 14V24C38 33 32 39 24 42C16 39 10 33 10 24V14L24 8Z" fill="#FFFFFF" fill-opacity="0.25" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"/>
+                  <path d="M24 31C24 31 16 26 16 21C16 18.5 18 17 20.5 17C22 17 23.3 17.8 24 19C24.7 17.8 26 17 27.5 17C30 17 32 18.5 32 21C32 26 24 31 24 31Z" fill="#FFD166"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-unicef text-white text-xs font-bold">Articolo 3</span>
+                  <div class="flex items-center gap-1.5">
+                    <button type="button" data-read-principle="1" class="speak-trigger px-2.5 py-1 rounded-full bg-white text-unicef text-xs font-bold border border-unicef/25 hover:bg-unicef hover:text-white transition-colors" title="Ascolta questo principio">🎙️ Ascolta</button>
+                    <span class="principle-toggle-icon text-unicef font-bold text-sm bg-white px-3 py-1 rounded-full border border-unicef/20">Scopri +</span>
+                  </div>
+                </div>
+                <h3 class="font-display font-bold text-2xl text-navy mt-2">Superiore interesse del minore</h3>
+                <p class="text-unicef font-bold text-sm mt-0.5">«Il tuo bene prima di tutto»</p>
+                <p class="text-navy/85 text-sm sm:text-base mt-3 leading-relaxed">
+                  In ogni decisione presa da genitori, insegnanti, giudici, sindaci o governi che riguarda i bambini e i ragazzi, la prima domanda deve essere: <strong>«Qual è la scelta migliore per il loro benessere e la loro crescita?»</strong>.
+                </p>
+              </div>
+            </div>
+            <div class="principle-details hidden mt-5 pt-4 border-t-2 border-unicef/20 bg-white/80 rounded-2xl p-4 space-y-2">
+              <p class="text-sm text-navy"><strong class="text-unicef">🏙️ Nella città e in famiglia:</strong> Quando un Comune progetta una nuova strada o un parco, deve pensare prima alla sicurezza e agli spazi verdi per i ragazzi.</p>
+              <p class="text-xs font-semibold text-navy/70">💡 Domanda per riflettere: Quale decisione della tua città migliorerebbe subito la vita dei ragazzi?</p>
+            </div>
+          </article>
+
+          <article class="principle-card bg-softmint/80 border-3 border-mint/40 rounded-3xl p-6 sm:p-7 shadow-card transition-all hover:-translate-y-1 cursor-pointer" data-principle="2">
+            <div class="flex items-start gap-4">
+              <div class="w-16 h-16 shrink-0 rounded-2xl bg-mint text-navy flex items-center justify-center shadow-md">
+                <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none">
+                  <path d="M24 38V22" stroke="#1D3557" stroke-width="3.5" stroke-linecap="round"/>
+                  <path d="M24 26C16 26 12 20 12 14C18 14 24 18 24 26Z" fill="#FFFFFF"/>
+                  <path d="M24 22C32 22 36 16 36 10C30 10 24 14 24 22Z" fill="#FFD166"/>
+                  <path d="M15 38H33" stroke="#1D3557" stroke-width="3.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold">Articolo 6</span>
+                  <div class="flex items-center gap-1.5">
+                    <button type="button" data-read-principle="2" class="speak-trigger px-2.5 py-1 rounded-full bg-white text-emerald-700 text-xs font-bold border border-mint/50 hover:bg-emerald-600 hover:text-white transition-colors" title="Ascolta questo principio">🎙️ Ascolta</button>
+                    <span class="principle-toggle-icon text-emerald-700 font-bold text-sm bg-white px-3 py-1 rounded-full border border-mint/40">Scopri +</span>
+                  </div>
+                </div>
+                <h3 class="font-display font-bold text-2xl text-navy mt-2">Vita, sopravvivenza e sviluppo</h3>
+                <p class="text-emerald-700 font-bold text-sm mt-0.5">«Crescere sani e felici»</p>
+                <p class="text-navy/85 text-sm sm:text-base mt-3 leading-relaxed">
+                  Ogni bambino ha il diritto fondamentale alla vita e gli Stati devono fare tutto il possibile affinché possa crescere sano, nutrito, protetto e sviluppare al massimo i propri <strong>talenti fisici, mentali, emotivi e sociali</strong>.
+                </p>
+              </div>
+            </div>
+            <div class="principle-details hidden mt-5 pt-4 border-t-2 border-mint/40 bg-white/80 rounded-2xl p-4 space-y-2">
+              <p class="text-sm text-navy"><strong class="text-emerald-700">🌱 Crescere bene:</strong> Significa avere cibo sano, acqua pulita, cure mediche, ma anche affetto, istruzione e opportunità per scoprire ciò che ami fare.</p>
+              <p class="text-xs font-semibold text-navy/70">💡 Domanda per riflettere: Di cosa ha bisogno una persona per fiorire come una piantina?</p>
+            </div>
+          </article>
+
+          <article class="principle-card bg-softyellow border-3 border-sunny rounded-3xl p-6 sm:p-7 shadow-card transition-all hover:-translate-y-1 cursor-pointer" data-principle="3">
+            <div class="flex items-start gap-4">
+              <div class="w-16 h-16 shrink-0 rounded-2xl bg-sunny text-navy flex items-center justify-center shadow-md">
+                <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none">
+                  <path d="M12 22L28 13V33L12 24V22Z" fill="#E2231A"/>
+                  <rect x="9" y="20" width="5" height="7" rx="2" fill="#1D3557"/>
+                  <path d="M33 17C36 20 36 26 33 29" stroke="#1D3557" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M37 13C42 18 42 28 37 33" stroke="#00AEEF" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-bold">Articolo 12</span>
+                  <div class="flex items-center gap-1.5">
+                    <button type="button" data-read-principle="3" class="speak-trigger px-2.5 py-1 rounded-full bg-white text-amber-700 text-xs font-bold border border-sunny hover:bg-amber-500 hover:text-white transition-colors" title="Ascolta questo principio">🎙️ Ascolta</button>
+                    <span class="principle-toggle-icon text-amber-700 font-bold text-sm bg-white px-3 py-1 rounded-full border border-sunny">Scopri +</span>
+                  </div>
+                </div>
+                <h3 class="font-display font-bold text-2xl text-navy mt-2">Ascolto e partecipazione</h3>
+                <p class="text-amber-700 font-bold text-sm mt-0.5">«La tua voce conta»</p>
+                <p class="text-navy/85 text-sm sm:text-base mt-3 leading-relaxed">
+                  Hai il diritto di <strong>esprimere liberamente la tua opinione</strong> su tutte le questioni che ti riguardano e gli adulti hanno il dovere di ascoltarti con attenzione e prendere sul serio ciò che pensi, tenendo conto della tua età.
+                </p>
+              </div>
+            </div>
+            <div class="principle-details hidden mt-5 pt-4 border-t-2 border-sunny bg-white/80 rounded-2xl p-4 space-y-2">
+              <p class="text-sm text-navy"><strong class="text-amber-700">🗣️ Partecipare davvero:</strong> Eleggere i rappresentanti di classe, proporre idee per il cortile della scuola o esprimere il proprio punto di vista in famiglia sono modi concreti di esercitare l'Art. 12!</p>
+              <p class="text-xs font-semibold text-navy/70">💡 Domanda per riflettere: Quando ti sei sentito davvero ascoltato dagli adulti?</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 4. ESPLORATORE INTERATTIVO DEGLI ARTICOLI                             -->
+    <!-- ===================================================================== -->
+    <section id="articoli" class="py-16 sm:py-24 bg-cream">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-softcoral text-coral font-bold text-xs uppercase tracking-wider mb-3">
+            Guida Illustrata A Misura di Ragazzi
+          </span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-navy mb-4">
+            Esplora gli Articoli della Convenzione
+          </h2>
+          <p class="text-base sm:text-lg text-navy/80">
+            Cerca un argomento, filtra per tema e clicca su qualsiasi card per aprire la scheda illustrata con la spiegazione <strong>«In parole semplici»</strong> e un esempio concreto!
+          </p>
+        </div>
+
+        <div class="bg-white rounded-3xl p-5 sm:p-6 border-2 border-navy/10 shadow-card mb-10 space-y-5">
+          <div class="relative max-w-2xl mx-auto">
+            <span class="absolute inset-y-0 left-4 flex items-center text-navy/45 text-lg pointer-events-none">🔍</span>
+            <input type="text" id="article-search" placeholder="Cerca un diritto (es. gioco, scuola, salute, nome, privacy, guerra...)" class="w-full pl-12 pr-12 py-3.5 rounded-2xl bg-cream border-2 border-navy/15 text-navy placeholder-navy/45 font-medium focus:outline-none focus:border-unicef transition-colors" />
+            <button type="button" id="clear-search-btn" class="hidden absolute inset-y-0 right-3 my-auto h-8 px-2.5 rounded-xl bg-navy/10 text-navy text-xs font-bold hover:bg-coral hover:text-white transition-colors">Cancella</button>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-2" id="category-filters" role="tablist" aria-label="Filtra articoli per categoria">
+            <button type="button" data-category="Tutti" class="cat-btn active px-4 py-2 rounded-full text-sm font-bold bg-navy text-white shadow-sm transition-all">🌈 Tutti (20)</button>
+            <button type="button" data-category="Identità e Famiglia" class="cat-btn px-4 py-2 rounded-full text-sm font-bold bg-softblue text-navy hover:bg-unicef hover:text-white transition-all">👨‍👩‍👧‍👦 Identità e Famiglia</button>
+            <button type="button" data-category="Salute e Benessere" class="cat-btn px-4 py-2 rounded-full text-sm font-bold bg-softmint text-navy hover:bg-mint transition-all">💚 Salute e Benessere</button>
+            <button type="button" data-category="Scuola e Gioco" class="cat-btn px-4 py-2 rounded-full text-sm font-bold bg-softyellow text-navy hover:bg-sunny transition-all">🎨 Scuola e Gioco</button>
+            <button type="button" data-category="Protezione" class="cat-btn px-4 py-2 rounded-full text-sm font-bold bg-softcoral text-navy hover:bg-coral hover:text-white transition-all">🛡️ Protezione</button>
+            <button type="button" data-category="Voce e Libertà" class="cat-btn px-4 py-2 rounded-full text-sm font-bold bg-purple-100 text-navy hover:bg-purple-600 hover:text-white transition-all">📣 Voce e Libertà</button>
+          </div>
+        </div>
+
+        <div id="articles-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+        <div id="no-articles-state" class="hidden text-center py-14 bg-white rounded-3xl border-2 border-dashed border-navy/20">
+          <p class="text-4xl mb-3">🔎</p>
+          <h3 class="font-display font-bold text-2xl text-navy">Nessun articolo trovato</h3>
+          <p class="text-navy/70 mt-1 mb-4">Prova a cercare con un'altra parola chiave o mostra tutti gli articoli.</p>
+          <button type="button" id="reset-filters-btn" class="px-5 py-2.5 rounded-xl bg-unicef text-white font-bold text-sm hover:bg-sky-500">Mostra tutti gli articoli</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. SEZIONE VIDEO ("Guarda e Rifletti")                                -->
+    <!-- ===================================================================== -->
+    <section id="video" class="py-16 sm:py-24 bg-navy text-white relative overflow-hidden">
+      <div class="absolute inset-0 bg-dots opacity-10 pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-sunny text-navy font-bold text-xs uppercase tracking-wider mb-3">
+            Musica, Parole e Consapevolezza
+          </span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white mb-4">
+            Guarda e Rifletti: <span class="text-sunny">Il Rap dei Diritti</span>
+          </h2>
+          <p class="text-base sm:text-lg text-white/85">
+            Guarda il video realizzato dai bambini della Scuola Primaria "Via Manzoni" di Praia a Mare nell'ambito del progetto <em>Fuoriclasse in movimento</em> di Save the Children, poi esplora gli spunti di discussione!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-7 bg-white text-navy rounded-[2rem] p-4 sm:p-6 shadow-2xl border-4 border-unicef">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b-2 border-navy/10">
+              <div class="flex items-center gap-2.5">
+                <span class="w-3.5 h-3.5 rounded-full bg-coral"></span>
+                <span class="w-3.5 h-3.5 rounded-full bg-sunny"></span>
+                <span class="w-3.5 h-3.5 rounded-full bg-mint"></span>
+                <span class="ml-1 font-display font-bold text-base sm:text-lg text-navy">
+                  🎵 Il Rap dei Diritti dei Bambini (Save the Children)
+                </span>
+              </div>
+              <div class="flex items-center gap-1.5 bg-cream p-1 rounded-xl border border-navy/15">
+                <button type="button" id="tab-yt-embed" class="px-3 py-1 rounded-lg text-xs font-bold bg-unicef text-white transition-colors">Player Video</button>
+                <button type="button" id="tab-interactive-lyrics" class="px-3 py-1 rounded-lg text-xs font-bold text-navy hover:bg-softblue transition-colors">Strofe &amp; Ritmo</button>
+              </div>
+            </div>
+
+            <div id="video-embed-container" class="relative w-full aspect-video rounded-2xl overflow-hidden bg-navy shadow-inner">
+              <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/p9W6RBu7Mi4?rel=0" title="Il Rap dei Diritti dei Bambini - Save the Children" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+
+            <div id="interactive-lyrics-container" class="hidden rounded-2xl bg-gradient-to-br from-softblue via-cream to-softyellow p-6 border-2 border-unicef/30 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-coral">Modalità Classe / Karaoke Educativo</span>
+                  <h3 class="font-display font-bold text-xl text-navy">I Messaggi Chiave del Rap dei Diritti</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="read-lyrics-btn" class="speak-trigger px-3.5 py-2 rounded-xl bg-unicef text-white text-xs font-bold hover:bg-sky-500 transition-all flex items-center gap-1.5 shadow-sm">
+                    <span>🎙️ Leggi Strofe</span>
+                  </button>
+                  <button type="button" id="play-rap-beat-btn" class="px-4 py-2 rounded-xl bg-coral text-white text-xs font-bold hover:bg-red-600 transition-all flex items-center gap-1.5 shadow-sm">
+                    <span>🥁</span> <span id="rap-beat-label">Avvia Ritmo</span>
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div class="bg-white p-3.5 rounded-xl border-l-4 border-coral shadow-sm">
+                  <p class="font-bold text-coral text-xs uppercase">Strofa 1 • Identità e Uguaglianza</p>
+                  <p class="text-navy mt-1 font-medium">«Abbiamo diritto a un nome e a una casa, nessuno ci esclude, nessuno ci schiaccia!»</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border-l-4 border-unicef shadow-sm">
+                  <p class="font-bold text-unicef text-xs uppercase">Strofa 2 • Scuola e Futuro</p>
+                  <p class="text-navy mt-1 font-medium">«Andare a scuola per poter imparare, scoprire il mondo, crescere e sognare!»</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border-l-4 border-mint shadow-sm">
+                  <p class="font-bold text-emerald-700 text-xs uppercase">Strofa 3 • Gioco e Tempo Libero</p>
+                  <p class="text-navy mt-1 font-medium">«Il gioco non è un lusso, è un diritto vero: ridere insieme sotto lo stesso cielo!»</p>
+                </div>
+                <div class="bg-white p-3.5 rounded-xl border-l-4 border-sunny shadow-sm">
+                  <p class="font-bold text-amber-700 text-xs uppercase">Ritornello • La Nostra Voce</p>
+                  <p class="text-navy mt-1 font-medium">«Ascolta la nostra voce, siamo il presente: i diritti dei bambini proteggono la gente!»</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t-2 border-navy/10 flex flex-wrap items-center justify-between gap-3">
+              <p class="text-xs text-navy/70">
+                Il video non si avvia nella rete scolastica? Guardalo direttamente su YouTube o usa la scheda <strong>Strofe &amp; Ritmo</strong>!
+              </p>
+              <a href="https://www.youtube.com/watch?v=p9W6RBu7Mi4" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-coral text-white text-xs sm:text-sm font-bold hover:bg-red-600 transition-colors shadow-sm">
+                <span>▶ Guarda su YouTube</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-white/10 backdrop-blur-sm border-2 border-white/15 rounded-3xl p-6">
+              <h3 class="font-display font-bold text-2xl text-sunny flex items-center gap-2">
+                <span>💬</span> 3 Spunti di Riflessione
+              </h3>
+              <p class="text-sm text-white/80 mt-1 mb-5">
+                Clicca su ogni domanda per aprire la traccia di discussione o ascoltarla con la voce narrante.
+              </p>
+
+              <div class="space-y-3" id="reflection-prompts">
+                <div class="reflection-item bg-white text-navy rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.01]" data-reflection="0">
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <span class="w-8 h-8 rounded-xl bg-coral text-white font-display font-bold flex items-center justify-center shrink-0">1</span>
+                      <h4 class="font-display font-bold text-base sm:text-lg">Diritto chiama Dovere: cosa significa?</h4>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button type="button" data-read-reflection="0" class="speak-trigger px-2.5 py-1 rounded-lg bg-softcoral text-coral text-xs font-bold hover:bg-coral hover:text-white transition-colors">🎙️</button>
+                      <span class="reflection-chevron text-coral font-bold text-lg">+</span>
+                    </div>
+                  </div>
+                  <div class="reflection-body hidden mt-3 pt-3 border-t border-navy/10 text-sm text-navy/85 space-y-2">
+                    <p>I diritti dei bambini non vanno "guadagnati", perché appartengono a tutti fin dalla nascita. Però, quando viviamo insieme agli altri, rispettare i diritti dei compagni aiuta tutti a stare bene!</p>
+                    <p class="font-semibold text-unicef">👉 Sfida in classe: Scrivete 3 gesti gentili che proteggono i diritti di un compagno.</p>
+                  </div>
+                </div>
+
+                <div class="reflection-item bg-white text-navy rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.01]" data-reflection="1">
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <span class="w-8 h-8 rounded-xl bg-unicef text-white font-display font-bold flex items-center justify-center shrink-0">2</span>
+                      <h4 class="font-display font-bold text-base sm:text-lg">Quale diritto vorresti raccontare con una canzone?</h4>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button type="button" data-read-reflection="1" class="speak-trigger px-2.5 py-1 rounded-lg bg-softblue text-unicef text-xs font-bold hover:bg-unicef hover:text-white transition-colors">🎙️</button>
+                      <span class="reflection-chevron text-unicef font-bold text-lg">+</span>
+                    </div>
+                  </div>
+                  <div class="reflection-body hidden mt-3 pt-3 border-t border-navy/10 text-sm text-navy/85 space-y-2">
+                    <p>I ragazzi di Praia a Mare hanno usato il rap per far conoscere la Convenzione ONU a tutti. La musica, il disegno e il teatro sono modi potentissimi per esercitare l'<strong>Articolo 13</strong> e l'<strong>Articolo 31</strong>.</p>
+                    <p class="font-semibold text-coral">👉 Sfida creativa: Inventa una rima di 2 versi sul tuo diritto preferito!</p>
+                  </div>
+                </div>
+
+                <div class="reflection-item bg-white text-navy rounded-2xl p-4 cursor-pointer transition-all hover:scale-[1.01]" data-reflection="2">
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <span class="w-8 h-8 rounded-xl bg-mint text-navy font-display font-bold flex items-center justify-center shrink-0">3</span>
+                      <h4 class="font-display font-bold text-base sm:text-lg">Tutti i bambini nel mondo vedono rispettati i loro diritti?</h4>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button type="button" data-read-reflection="2" class="speak-trigger px-2.5 py-1 rounded-lg bg-softmint text-emerald-700 text-xs font-bold hover:bg-emerald-600 hover:text-white transition-colors">🎙️</button>
+                      <span class="reflection-chevron text-emerald-700 font-bold text-lg">+</span>
+                    </div>
+                  </div>
+                  <div class="reflection-body hidden mt-3 pt-3 border-t border-navy/10 text-sm text-navy/85 space-y-2">
+                    <p>Purtroppo oggi milioni di bambini nel mondo non possono andare a scuola, vivono in zone di guerra o non hanno acqua pulita. Conoscere la Convenzione ci aiuta a capire che i diritti non sono scontati.</p>
+                    <p class="font-semibold text-emerald-700">👉 In famiglia: Raccontatevi qual era il vostro diritto più importante quando avevate 8 anni.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6. AREA GIOCHI INTERATTIVI                                            -->
+    <!-- ===================================================================== -->
+    <section id="giochi" class="py-16 sm:py-24 bg-cream">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-softmint text-emerald-700 font-bold text-xs uppercase tracking-wider mb-3">
+            Sfida Te Stesso e i Tuoi Amici
+          </span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-navy mb-4">
+            Gioca e Impara i Tuoi Diritti!
+          </h2>
+          <p class="text-base sm:text-lg text-navy/80">
+            Scegli uno dei <strong>3 giochi interattivi</strong> per mettere alla prova quello che hai imparato sulla Convenzione ONU!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8" role="tablist" aria-label="Scegli un gioco interattivo">
+          <button type="button" data-game-tab="quiz" class="game-tab-btn active p-4 rounded-2xl border-3 border-unicef bg-unicef text-white font-display font-bold text-base sm:text-lg shadow-playful transition-all flex items-center justify-center gap-2.5">
+            <span class="text-2xl">🕵️</span>
+            <span>1. Qual è il Diritto?</span>
+          </button>
+          <button type="button" data-game-tab="sort" class="game-tab-btn p-4 rounded-2xl border-3 border-navy/15 bg-white text-navy font-display font-bold text-base sm:text-lg hover:border-coral transition-all flex items-center justify-center gap-2.5">
+            <span class="text-2xl">⚖️</span>
+            <span>2. Diritto o Desiderio?</span>
+          </button>
+          <button type="button" data-game-tab="memory" class="game-tab-btn p-4 rounded-2xl border-3 border-navy/15 bg-white text-navy font-display font-bold text-base sm:text-lg hover:border-mint transition-all flex items-center justify-center gap-2.5">
+            <span class="text-2xl">🃏</span>
+            <span>3. Memory dei Diritti</span>
+          </button>
+        </div>
+
+        <div class="bg-white rounded-[2.25rem] p-6 sm:p-10 border-4 border-navy/10 shadow-card">
+          <!-- GIOCO 1: QUIZ -->
+          <div id="game-panel-quiz" class="game-panel">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-6 border-b-2 border-navy/10">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-unicef">Gioco 1 • Quiz a Scenari Reali</span>
+                <h3 class="font-display font-bold text-2xl text-navy">Qual è il Diritto in Gioco?</h3>
+              </div>
+              <div class="flex items-center gap-3">
+                <span id="quiz-progress-text" class="px-3.5 py-1.5 rounded-full bg-softblue text-unicef font-bold text-sm">Domanda 1 / 6</span>
+                <span id="quiz-score-badge" class="px-3.5 py-1.5 rounded-full bg-sunny text-navy font-bold text-sm">⭐ Punti: 0</span>
+              </div>
+            </div>
+
+            <div class="w-full h-3 bg-cream rounded-full overflow-hidden mb-8 border border-navy/10">
+              <div id="quiz-progress-bar" class="h-full bg-unicef transition-all duration-500 rounded-full" style="width: 16.6%"></div>
+            </div>
+
+            <div id="quiz-question-area" class="space-y-6">
+              <div class="bg-softblue/60 border-2 border-unicef/25 rounded-3xl p-6 relative">
+                <div class="flex items-center justify-between gap-2 mb-3">
+                  <span id="quiz-scenario-emoji" class="text-4xl">🏫</span>
+                  <button type="button" id="quiz-read-scenario-btn" class="speak-trigger px-3.5 py-1.5 rounded-xl bg-white border border-unicef/30 text-unicef text-xs font-bold hover:bg-unicef hover:text-white transition-colors">🎙️ Leggi scenario</button>
+                </div>
+                <p id="quiz-scenario-text" class="text-lg sm:text-xl font-semibold text-navy leading-relaxed"></p>
+              </div>
+
+              <div id="quiz-options" class="grid grid-cols-1 gap-3.5"></div>
+
+              <div id="quiz-feedback" class="hidden rounded-2xl p-5 border-2 transition-all">
+                <div class="flex items-start gap-3">
+                  <span id="quiz-feedback-icon" class="text-2xl">🎉</span>
+                  <div class="flex-1">
+                    <h4 id="quiz-feedback-title" class="font-display font-bold text-lg"></h4>
+                    <p id="quiz-feedback-explanation" class="text-sm sm:text-base mt-1 leading-relaxed"></p>
+                  </div>
+                </div>
+                <div class="mt-4 flex justify-end">
+                  <button type="button" id="quiz-next-btn" class="px-6 py-3 rounded-xl bg-navy text-white font-display font-bold text-base hover:bg-unicef transition-colors">Prossima Domanda →</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="quiz-result-area" class="hidden text-center py-8 space-y-5">
+              <div class="text-6xl">🏆</div>
+              <h4 class="font-display font-bold text-3xl text-navy">Sfida Completata!</h4>
+              <p id="quiz-final-score" class="text-xl font-bold text-unicef"></p>
+              <p id="quiz-final-message" class="text-navy/80 max-w-xl mx-auto"></p>
+              <div class="flex flex-wrap justify-center gap-3 pt-2">
+                <button type="button" id="quiz-restart-btn" class="px-6 py-3.5 rounded-2xl bg-unicef text-white font-display font-bold text-base shadow-playful hover:bg-sky-500">🔄 Gioca Ancora</button>
+                <a href="#attestato" class="px-6 py-3.5 rounded-2xl bg-coral text-white font-display font-bold text-base shadow-playful hover:bg-red-600">🏅 Ritira il Tuo Attestato</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- GIOCO 2: SMISTAMENTO -->
+          <div id="game-panel-sort" class="game-panel hidden">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-6 border-b-2 border-navy/10">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-coral">Gioco 2 • Smistamento Educativo</span>
+                <h3 class="font-display font-bold text-2xl text-navy">Diritto Fondamentale o Desiderio?</h3>
+              </div>
+              <div class="flex items-center gap-3">
+                <span id="sort-counter-text" class="px-3.5 py-1.5 rounded-full bg-softcoral text-coral font-bold text-sm">Carta 1 / 10</span>
+                <span id="sort-score-badge" class="px-3.5 py-1.5 rounded-full bg-sunny text-navy font-bold text-sm">⭐ Punti: 0</span>
+              </div>
+            </div>
+
+            <p class="text-sm sm:text-base text-navy/80 mb-6 text-center max-w-2xl mx-auto">
+              I <strong>Diritti Fondamentali</strong> sono bisogni universali indispensabili per crescere sani, sicuri e felici. I <strong>Desideri</strong> sono cose belle che ci piacerebbe avere, ma non sono diritti umani! Classifica queste 10 carte:
+            </p>
+
+            <div id="sort-play-area" class="max-w-xl mx-auto space-y-6">
+              <div id="sort-card-box" class="bg-gradient-to-br from-cream to-softyellow border-4 border-navy/15 rounded-3xl p-8 text-center shadow-card transition-all relative">
+                <button type="button" id="sort-read-card-btn" class="speak-trigger absolute top-4 right-4 px-3 py-1.5 rounded-xl bg-white border border-navy/15 text-navy text-xs font-bold hover:border-unicef hover:text-unicef transition-colors">🎙️ Leggi</button>
+                <span id="sort-card-emoji" class="text-6xl block mb-4">💧</span>
+                <h4 id="sort-card-title" class="font-display font-bold text-2xl sm:text-3xl text-navy"></h4>
+                <p id="sort-card-hint" class="text-sm text-navy/70 mt-2"></p>
+              </div>
+
+              <div id="sort-buttons-row" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <button type="button" id="btn-choose-right" class="p-5 rounded-2xl bg-mint text-navy border-3 border-emerald-600/30 font-display font-bold text-lg shadow-playful hover:bg-emerald-400 transition-all flex flex-col items-center gap-1">
+                  <span class="text-2xl">🛡️</span>
+                  <span>Diritto Fondamentale</span>
+                  <span class="text-xs font-sans font-semibold opacity-80">Bisogno universale (0–18 anni)</span>
+                </button>
+                <button type="button" id="btn-choose-wish" class="p-5 rounded-2xl bg-sunny text-navy border-3 border-amber-500/30 font-display font-bold text-lg shadow-playful hover:bg-amber-300 transition-all flex flex-col items-center gap-1">
+                  <span class="text-2xl">🎁</span>
+                  <span>Desiderio Personale</span>
+                  <span class="text-xs font-sans font-semibold opacity-80">Un extra o uno sfizio</span>
+                </button>
+              </div>
+
+              <div id="sort-feedback" class="hidden rounded-2xl p-5 border-2">
+                <p id="sort-feedback-title" class="font-display font-bold text-lg"></p>
+                <p id="sort-feedback-desc" class="text-sm sm:text-base mt-1 leading-relaxed"></p>
+                <div class="mt-4 text-right">
+                  <button type="button" id="sort-next-btn" class="px-6 py-2.5 rounded-xl bg-navy text-white font-display font-bold text-sm hover:bg-coral transition-colors">Carta Successiva →</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="sort-result-area" class="hidden text-center py-8 space-y-5">
+              <div class="text-6xl">🌟</div>
+              <h4 class="font-display font-bold text-3xl text-navy">Ottimo Lavoro di Squadra!</h4>
+              <p id="sort-final-score" class="text-xl font-bold text-coral"></p>
+              <p class="text-navy/80 max-w-xl mx-auto">Hai imparato a distinguere ciò che è un lusso o un desiderio da ciò che la Convenzione ONU garantisce a tutti i bambini e i ragazzi del pianeta!</p>
+              <button type="button" id="sort-restart-btn" class="px-6 py-3.5 rounded-2xl bg-coral text-white font-display font-bold text-base shadow-playful hover:bg-red-600">🔄 Ricomincia lo Smistamento</button>
+            </div>
+          </div>
+
+          <!-- GIOCO 3: MEMORY -->
+          <div id="game-panel-memory" class="game-panel hidden">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-5 mb-6 border-b-2 border-navy/10">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Gioco 3 • Memoria Visiva</span>
+                <h3 class="font-display font-bold text-2xl text-navy">Memory dei Diritti</h3>
+              </div>
+              <div class="flex items-center gap-3">
+                <span id="memory-moves-badge" class="px-3.5 py-1.5 rounded-full bg-softmint text-emerald-800 font-bold text-sm">👣 Mosse: 0</span>
+                <span id="memory-pairs-badge" class="px-3.5 py-1.5 rounded-full bg-softblue text-unicef font-bold text-sm">🧩 Coppie: 0 / 6</span>
+                <button type="button" id="memory-reset-btn" class="px-3.5 py-1.5 rounded-full bg-navy text-white font-bold text-xs hover:bg-coral transition-colors">↻ Mescola</button>
+              </div>
+            </div>
+
+            <p class="text-sm sm:text-base text-navy/80 mb-6 text-center">
+              Gira due carte alla volta e abbina l'<strong>icona illustrata</strong> al corrispondente <strong>Articolo della Convenzione ONU</strong>!
+            </p>
+
+            <div id="memory-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto"></div>
+
+            <div id="memory-win-banner" class="hidden mt-8 bg-gradient-to-r from-softmint via-softyellow to-softblue border-3 border-mint rounded-3xl p-6 text-center space-y-4">
+              <div class="text-5xl">🎊</div>
+              <h4 class="font-display font-bold text-2xl sm:text-3xl text-navy">Fantastico! Hai abbinato tutti e 6 i diritti!</h4>
+              <p id="memory-win-stats" class="text-base font-bold text-emerald-800"></p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-left text-xs pt-2">
+                <div class="bg-white/90 p-3 rounded-xl border border-navy/10"><strong>Art. 7:</strong> Diritto al nome e alla nazionalità</div>
+                <div class="bg-white/90 p-3 rounded-xl border border-navy/10"><strong>Art. 12:</strong> Diritto di essere ascoltati</div>
+                <div class="bg-white/90 p-3 rounded-xl border border-navy/10"><strong>Art. 19:</strong> Protezione da ogni violenza</div>
+                <div class="bg-white/90 p-3 rounded-xl border border-navy/10"><strong>Art. 24:</strong> Diritto alla salute e alle cure</div>
+                <div class="bg-white/90 p-3 rounded-xl border border-navy/10"><strong>Art. 28:</strong> Diritto all'istruzione</div>
+                <div class="bg-white/90 p-3 rounded-xl border border-navy/10"><strong>Art. 31:</strong> Diritto al gioco e al riposo</div>
+              </div>
+              <div class="pt-2">
+                <button type="button" id="memory-play-again-btn" class="px-6 py-3 rounded-2xl bg-emerald-600 text-white font-display font-bold text-base shadow-playful hover:bg-emerald-700">🔄 Gioca di Nuovo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 7. GENERATORE ATTESTATO DEL GIOVANE DIFENSORE DEI DIRITTI             -->
+    <!-- ===================================================================== -->
+    <section id="attestato" class="py-16 sm:py-24 bg-gradient-to-b from-softblue/60 to-cream border-t-2 border-navy/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="inline-block px-4 py-1.5 rounded-full bg-coral text-white font-bold text-xs uppercase tracking-wider mb-3">
+            Il Tuo Impegno Ufficiale
+          </span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-navy mb-4">
+            Attestato del Giovane Difensore dei Diritti
+          </h2>
+          <p class="text-base sm:text-lg text-navy/80">
+            Personalizza il tuo diploma colorato, scegli il tuo avatar e il diritto che ti sta più a cuore, poi festeggia e stampalo per appenderlo in camera o in classe!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border-2 border-navy/10 shadow-card space-y-6">
+            <div>
+              <label for="cert-name-input" class="block font-display font-bold text-lg text-navy mb-2">1. Come ti chiami? (o nome della classe)</label>
+              <input type="text" id="cert-name-input" maxlength="42" placeholder="Es. Giulia Rossi oppure Classe 5ª B" class="w-full px-4 py-3.5 rounded-2xl bg-cream border-2 border-navy/15 text-navy font-semibold focus:outline-none focus:border-unicef" />
+            </div>
+
+            <div>
+              <span class="block font-display font-bold text-lg text-navy mb-2">2. Scegli il tuo Avatar</span>
+              <div class="grid grid-cols-3 gap-2.5" id="avatar-selector">
+                <button type="button" data-avatar="esploratore" class="avatar-btn active p-3 rounded-2xl border-2 border-unicef bg-softblue text-center transition-all">
+                  <span class="text-2xl block">🧭</span>
+                  <span class="text-xs font-bold text-navy mt-1 block">Esploratore</span>
+                </button>
+                <button type="button" data-avatar="artista" class="avatar-btn p-3 rounded-2xl border-2 border-navy/15 bg-cream text-center hover:border-coral transition-all">
+                  <span class="text-2xl block">🎨</span>
+                  <span class="text-xs font-bold text-navy mt-1 block">Artista</span>
+                </button>
+                <button type="button" data-avatar="scienziata" class="avatar-btn p-3 rounded-2xl border-2 border-navy/15 bg-cream text-center hover:border-mint transition-all">
+                  <span class="text-2xl block">🔬</span>
+                  <span class="text-xs font-bold text-navy mt-1 block">Scienziata</span>
+                </button>
+                <button type="button" data-avatar="sportiva" class="avatar-btn p-3 rounded-2xl border-2 border-navy/15 bg-cream text-center hover:border-sunny transition-all">
+                  <span class="text-2xl block">⚽</span>
+                  <span class="text-xs font-bold text-navy mt-1 block">Sportiva</span>
+                </button>
+                <button type="button" data-avatar="musicista" class="avatar-btn p-3 rounded-2xl border-2 border-navy/15 bg-cream text-center hover:border-purple-400 transition-all">
+                  <span class="text-2xl block">🎸</span>
+                  <span class="text-xs font-bold text-navy mt-1 block">Musicista</span>
+                </button>
+                <button type="button" data-avatar="eco" class="avatar-btn p-3 rounded-2xl border-2 border-navy/15 bg-cream text-center hover:border-emerald-500 transition-all">
+                  <span class="text-2xl block">🌱</span>
+                  <span class="text-xs font-bold text-navy mt-1 block">Eco-Amico</span>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label for="cert-right-select" class="block font-display font-bold text-lg text-navy mb-2">3. Il tuo Diritto del Cuore</label>
+              <select id="cert-right-select" class="w-full px-4 py-3.5 rounded-2xl bg-cream border-2 border-navy/15 text-navy font-semibold focus:outline-none focus:border-unicef">
+                <option value="Art. 31 • Il diritto al gioco, al riposo e al tempo libero">Art. 31 • Il diritto al gioco, al riposo e al tempo libero</option>
+                <option value="Art. 12 • Il diritto di esprimere la mia opinione ed essere ascoltato">Art. 12 • Il diritto di esprimere la mia opinione ed essere ascoltato</option>
+                <option value="Art. 2 • Il diritto all'uguaglianza senza alcuna discriminazione">Art. 2 • Il diritto all'uguaglianza senza alcuna discriminazione</option>
+                <option value="Art. 28 • Il diritto a un'istruzione di qualità per tutti">Art. 28 • Il diritto a un'istruzione di qualità per tutti</option>
+                <option value="Art. 24 • Il diritto alla salute, all'acqua pulita e al cibo sano">Art. 24 • Il diritto alla salute, all'acqua pulita e al cibo sano</option>
+                <option value="Art. 19 • Il diritto di crescere protetto da ogni forma di violenza">Art. 19 • Il diritto di crescere protetto da ogni forma di violenza</option>
+              </select>
+            </div>
+
+            <div class="pt-2 flex flex-col sm:flex-row gap-3">
+              <button type="button" id="celebrate-cert-btn" class="flex-1 py-4 px-5 rounded-2xl bg-coral text-white font-display font-bold text-base shadow-playful hover:bg-red-600 transition-all flex items-center justify-center gap-2">
+                <span>🎉 Genera e Festeggia!</span>
+              </button>
+              <button type="button" id="read-cert-btn" class="speak-trigger py-4 px-4 rounded-2xl bg-sunny text-navy border-2 border-navy/15 font-display font-bold text-base shadow-playful hover:bg-amber-300 transition-all flex items-center justify-center gap-1.5" title="Ascolta il tuo attestato letto ad alta voce">
+                <span>🎙️ Ascolta</span>
+              </button>
+              <button type="button" id="print-cert-btn" class="py-4 px-5 rounded-2xl bg-unicef text-white font-display font-bold text-base shadow-playful hover:bg-sky-500 transition-all flex items-center justify-center gap-2">
+                <span>🖨️ Stampa</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7">
+            <div id="certificate-printable" class="relative bg-white rounded-[2rem] p-6 sm:p-10 border-8 border-unicef shadow-2xl overflow-hidden">
+              <div class="absolute top-0 left-0 w-24 h-24 bg-sunny/40 rounded-br-full pointer-events-none"></div>
+              <div class="absolute top-0 right-0 w-24 h-24 bg-coral/20 rounded-bl-full pointer-events-none"></div>
+              <div class="absolute bottom-0 left-0 w-24 h-24 bg-mint/30 rounded-tr-full pointer-events-none"></div>
+              <div class="absolute bottom-0 right-0 w-24 h-24 bg-unicef/20 rounded-tl-full pointer-events-none"></div>
+
+              <div class="relative z-10 border-2 border-dashed border-navy/25 rounded-2xl p-5 sm:p-8 text-center space-y-5">
+                <div class="flex items-center justify-center gap-3">
+                  <span class="px-3.5 py-1 rounded-full bg-unicef text-white text-xs font-bold uppercase tracking-widest">
+                    Convenzione ONU • 20 Novembre 1989
+                  </span>
+                </div>
+
+                <h3 class="font-display font-bold text-2xl sm:text-4xl text-navy tracking-tight">
+                  Attestato Ufficiale di <br />
+                  <span class="text-coral">Giovane Difensore dei Diritti</span>
+                </h3>
+
+                <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-tr from-sunny via-softyellow to-softblue border-4 border-unicef flex items-center justify-center shadow-md">
+                  <span id="cert-preview-avatar" class="text-5xl">🧭</span>
+                </div>
+
+                <p class="text-sm sm:text-base text-navy/75 font-medium">Si certifica con orgoglio che</p>
+
+                <div class="py-2 px-4 border-b-4 border-sunny inline-block min-w-[240px] max-w-full">
+                  <p id="cert-preview-name" class="font-display font-bold text-2xl sm:text-4xl text-unicef break-words">
+                    Giovane Esploratore/trice
+                  </p>
+                </div>
+
+                <p class="text-sm sm:text-base text-navy/85 max-w-lg mx-auto leading-relaxed">
+                  ha esplorato la <strong>Convenzione ONU sui diritti dell'infanzia e dell'adolescenza</strong>, impegnandosi a conoscere, rispettare e difendere i diritti di tutti i bambini e i ragazzi, a partire da:
+                </p>
+
+                <div class="bg-softmint border-2 border-mint rounded-2xl p-4 max-w-lg mx-auto">
+                  <p id="cert-preview-right" class="font-display font-bold text-base sm:text-lg text-navy">
+                    Art. 31 • Il diritto al gioco, al riposo e al tempo libero
+                  </p>
+                </div>
+
+                <div class="pt-4 flex flex-wrap items-center justify-between gap-4 text-xs text-navy/70 border-t border-navy/10">
+                  <div class="text-left">
+                    <span class="block font-bold text-navy">Data di rilascio</span>
+                    <span id="cert-preview-date">Oggi</span>
+                  </div>
+
+                  <div class="flex items-center gap-2 bg-softyellow px-3.5 py-2 rounded-full border border-sunny">
+                    <span class="text-lg">🏅</span>
+                    <span class="font-display font-bold text-navy text-xs">Ambasciatore dei 54 Articoli</span>
+                  </div>
+
+                  <div class="text-right">
+                    <span class="block font-bold text-navy">Firma del Difensore</span>
+                    <span class="italic text-navy/50">_____________________</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER EDUCATIVO -->
+  <footer class="bg-navy text-white py-12 border-t-4 border-unicef">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        <div>
+          <span class="font-display font-bold text-2xl text-white">
+            I Nostri <span class="text-sunny">Diritti</span>
+          </span>
+          <p class="text-sm text-white/75 mt-2 leading-relaxed">
+            Risorsa educativa interattiva dedicata alla Convenzione ONU sui diritti dell'infanzia e dell'adolescenza (1989), ispirata alle pubblicazioni divulgative di UNICEF e Save the Children.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-3 md:justify-center text-sm font-semibold">
+          <a href="#principi" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-unicef transition-colors">I 4 Principi</a>
+          <a href="#articoli" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-coral transition-colors">Gli Articoli</a>
+          <a href="#video" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-sunny hover:text-navy transition-colors">Video Rap</a>
+          <a href="#giochi" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-mint hover:text-navy transition-colors">Giochi</a>
+        </div>
+
+        <div class="md:text-right space-y-2">
+          <a href="https://s3-www.savethechildren.it/public/files/Convenzione_ONU_sui_diritti_infanzia_adolescenza.pdf" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2.5 rounded-xl bg-coral text-white text-xs font-bold hover:bg-red-600 transition-colors">
+            📄 Opuscolo Save the Children (PDF)
+          </a>
+          <p class="text-xs text-white/60">
+            Ogni bambino e adolescente ha diritto a conoscere i propri diritti (Art. 42).
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODALE DETTAGLIO ARTICOLO -->
+  <div id="article-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-navy/70 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modal-article-title">
+    <div class="bg-white rounded-[2rem] max-w-2xl w-full max-h-[90vh] overflow-y-auto border-4 border-unicef shadow-2xl p-6 sm:p-8 relative">
+      <button type="button" id="close-modal-btn" aria-label="Chiudi scheda articolo" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-cream border-2 border-navy/15 text-navy font-bold text-lg hover:bg-coral hover:text-white hover:border-coral transition-colors flex items-center justify-center">✕</button>
+
+      <div class="flex items-center gap-4 mb-5 pr-10">
+        <div id="modal-article-icon" class="w-16 h-16 rounded-2xl bg-softblue flex items-center justify-center text-4xl shrink-0 border-2 border-unicef/30">📖</div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-1">
+            <span id="modal-article-number" class="px-3 py-0.5 rounded-full bg-coral text-white text-xs font-bold">Articolo 1</span>
+            <span id="modal-article-category" class="px-3 py-0.5 rounded-full bg-softblue text-unicef text-xs font-bold">Identità e Famiglia</span>
+          </div>
+          <h3 id="modal-article-title" class="font-display font-bold text-2xl sm:text-3xl text-navy"></h3>
+        </div>
+      </div>
+
+      <div class="mb-4 flex items-center justify-between gap-3 bg-cream border-2 border-unicef/25 rounded-2xl px-4 py-2.5">
+        <span class="text-xs font-bold text-navy/80 flex items-center gap-1.5">
+          <span>🎙️</span> Vuoi ascoltare la spiegazione con la voce narrante?
+        </span>
+        <button type="button" id="modal-read-article-btn" class="speak-trigger px-4 py-2 rounded-xl bg-unicef text-white font-display font-bold text-xs sm:text-sm hover:bg-sky-500 transition-colors shrink-0">
+          🔊 Ascolta Articolo
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-softblue/70 border-2 border-unicef/25 rounded-2xl p-5">
+          <h4 class="font-display font-bold text-base uppercase tracking-wide text-unicef mb-1.5 flex items-center gap-2"><span>💬</span> In parole semplici</h4>
+          <p id="modal-article-simple" class="text-navy text-base leading-relaxed"></p>
+        </div>
+
+        <div class="bg-softyellow border-2 border-sunny rounded-2xl p-5">
+          <h4 class="font-display font-bold text-base uppercase tracking-wide text-amber-800 mb-1.5 flex items-center gap-2"><span>🌟</span> Nella vita di tutti i giorni</h4>
+          <p id="modal-article-everyday" class="text-navy text-sm sm:text-base leading-relaxed"></p>
+        </div>
+
+        <div class="bg-softmint border-2 border-mint rounded-2xl p-4">
+          <p id="modal-article-action" class="text-sm font-semibold text-navy"></p>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t-2 border-navy/10 flex items-center justify-between gap-3">
+        <button type="button" id="modal-prev-btn" class="px-4 py-2.5 rounded-xl bg-cream border-2 border-navy/15 text-navy font-bold text-sm hover:border-unicef">← Precedente</button>
+        <button type="button" id="modal-next-btn" class="px-4 py-2.5 rounded-xl bg-unicef text-white font-bold text-sm hover:bg-sky-500">Successivo →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APPLICATIVO COMPLETO -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let soundEnabled = true;
+      let synth = null;
+      let rapLoopInterval = null;
+
+      function initAudio() {
+        try {
+          if (!synth && typeof Tone !== 'undefined') {
+            synth = new Tone.PolySynth(Tone.Synth, {
+              oscillator: { type: 'triangle' },
+              envelope: { attack: 0.02, decay: 0.15, sustain: 0.1, release: 0.4 }
+            }).toDestination();
+            synth.volume.value = -10;
+          }
+        } catch (err) {}
+      }
+
+      function playChime(type = 'tap') {
+        if (!soundEnabled) return;
+        try {
+          initAudio();
+          if (!synth) return;
+          if (Tone.context.state !== 'running') {
+            Tone.start();
+          }
+          const now = Tone.now();
+          if (type === 'success') {
+            synth.triggerAttackRelease(['C5', 'E5', 'G5'], '8n', now);
+          } else if (type === 'fanfare') {
+            synth.triggerAttackRelease('C5', '16n', now);
+            synth.triggerAttackRelease('E5', '16n', now + 0.1);
+            synth.triggerAttackRelease('G5', '16n', now + 0.2);
+            synth.triggerAttackRelease(['C6', 'E6'], '4n', now + 0.3);
+          } else if (type === 'gentle') {
+            synth.triggerAttackRelease(['D4', 'A4'], '8n', now);
+          } else {
+            synth.triggerAttackRelease('G5', '32n', now);
+          }
+        } catch (e) {}
+      }
+
+      const soundToggleBtn = document.getElementById('sound-toggle-btn');
+      soundToggleBtn.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
+        document.getElementById('sound-label').textContent = soundEnabled ? 'Audio ON' : 'Audio OFF';
+        soundToggleBtn.setAttribute('aria-pressed', String(soundEnabled));
+        if (soundEnabled) playChime('tap');
+      });
+
+      /* MOTORE VOCE NARRANTE ITALIANA */
+      const narratorEq = document.getElementById('narrator-eq');
+      const narratorProgressBar = document.getElementById('narrator-progress-bar');
+      const narratorNowReading = document.getElementById('narrator-now-reading');
+      const narratorVoiceTag = document.getElementById('narrator-voice-tag');
+      const narratorStatusPill = document.getElementById('narrator-status-pill');
+      const narratorPlayDemoBtn = document.getElementById('narrator-play-demo-btn');
+      const narratorPauseBtn = document.getElementById('narrator-pause-btn');
+      const narratorStopBtn = document.getElementById('narrator-stop-btn');
+      const narratorSpeedBtn = document.getElementById('narrator-speed-btn');
+      const systemVoiceSelect = document.getElementById('system-voice-select');
+      const elevenLabsKeyInput = document.getElementById('elevenlabs-key-input');
+      const voiceModal = document.getElementById('voice-settings-modal');
+
+      let speechRate = 0.96;
+      let speechPitch = 1.04;
+      let chosenVoiceURI = '';
+      let activeSpeechRequestId = 0;
+      let isSpeaking = false;
+      let isPaused = false;
+      let currentAudioEl = null;
+      let currentAudioUrl = null;
+      const elevenLabsCache = new Map();
+
+      function scoreItalianVoice(voice) {
+        const name = (voice.name || '').toLowerCase();
+        const lang = (voice.lang || '').toLowerCase();
+        if (!lang.startsWith('it')) return -1000;
+        let score = 100;
+        const maleNames = ['cosimo', 'luca', 'marco', 'giorgio', 'roberto', 'matteo', 'diego', 'male', 'uomo', 'giuseppe', 'alessandro'];
+        if (maleNames.some(m => name.includes(m))) score -= 500;
+        if (name.includes('isabella') && name.includes('natural')) score += 300;
+        else if (name.includes('google italiano')) score += 280;
+        else if (name.includes('elsa') && name.includes('natural')) score += 260;
+        else if (name.includes('federica') && (name.includes('premium') || name.includes('enhanced'))) score += 250;
+        else if (name.includes('alice') && (name.includes('premium') || name.includes('enhanced'))) score += 240;
+        else if (name.includes('natural') || name.includes('neural') || name.includes('online')) score += 200;
+        else if (['federica', 'alice', 'isabella', 'elsa', 'bianca', 'carla', 'chiara', 'giulia', 'paola', 'silvia', 'sofia', 'female', 'donna'].some(f => name.includes(f))) score += 120;
+        return score;
+      }
+
+      function getItalianVoicesSorted() {
+        if (!('speechSynthesis' in window)) return [];
+        const all = window.speechSynthesis.getVoices() || [];
+        return all.filter(v => (v.lang || '').toLowerCase().startsWith('it')).sort((a, b) => scoreItalianVoice(b) - scoreItalianVoice(a));
+      }
+
+      function populateItalianVoicesList() {
+        const itVoices = getItalianVoicesSorted();
+        if (!systemVoiceSelect) return;
+        if (itVoices.length === 0) {
+          systemVoiceSelect.innerHTML = '<option value="">Voce Italiana Predefinita del Browser</option>';
+          narratorVoiceTag.textContent = 'Voce Narrante Italiana';
+          return;
+        }
+        if (!chosenVoiceURI || !itVoices.some(v => v.voiceURI === chosenVoiceURI)) {
+          chosenVoiceURI = itVoices[0].voiceURI;
+        }
+        systemVoiceSelect.innerHTML = '';
+        itVoices.forEach((v, idx) => {
+          const opt = document.createElement('option');
+          opt.value = v.voiceURI;
+          const cleanName = v.name.replace(/Microsoft\s+/i, '').replace(/\s*-\s*Italian\s*\(Italy\)/i, '');
+          opt.textContent = idx === 0 ? `⭐ ${cleanName} (Consigliata)` : cleanName;
+          if (v.voiceURI === chosenVoiceURI) opt.selected = true;
+          systemVoiceSelect.appendChild(opt);
+        });
+        const activeVoice = itVoices.find(v => v.voiceURI === chosenVoiceURI) || itVoices[0];
+        const shortLabel = activeVoice.name.replace(/Microsoft\s+/i, '').replace(/\s*-\s*Italian\s*\(Italy\)/i, '');
+        narratorVoiceTag.textContent = `Voce IT • ${shortLabel}`;
+      }
+
+      if ('speechSynthesis' in window) {
+        populateItalianVoicesList();
+        window.speechSynthesis.onvoiceschanged = populateItalianVoicesList;
+      }
+
+      function prepareItalianSpeechText(rawText) {
+        return rawText
+          .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu, '')
+          .replace(/\bArtt\.\s*/gi, 'Articoli ')
+          .replace(/\bArt\.\s*/gi, 'Articolo ')
+          .replace(/\bONU\b/g, 'Onu')
+          .replace(/\bUNICEF\b/gi, 'Unicef')
+          .replace(/0\s*[–-]\s*18/g, 'da zero a diciotto')
+          .replace(/[•–—]/g, ', ')
+          .replace(/[«»]/g, '"')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+
+      function splitIntoNaturalSentences(text) {
+        const cleaned = prepareItalianSpeechText(text);
+        const parts = cleaned.match(/[^.!?:;]+[.!?:;]*/g) || [cleaned];
+        return parts.map(p => p.trim()).filter(Boolean);
+      }
+
+      function setPlayerUIState(state, titleText = '') {
+        if (state === 'playing') {
+          isSpeaking = true;
+          isPaused = false;
+          narratorEq.classList.add('eq-playing');
+          narratorStatusPill.textContent = 'In ascolto';
+          narratorStatusPill.className = 'px-2 py-0.5 rounded-full bg-mint text-navy text-[10px] font-bold shrink-0';
+          if (titleText) narratorNowReading.textContent = titleText;
+          narratorPlayDemoBtn.classList.add('hidden');
+          narratorPauseBtn.classList.remove('hidden');
+          narratorPauseBtn.classList.add('flex');
+          narratorPauseBtn.textContent = '⏸️';
+          narratorStopBtn.classList.remove('hidden');
+          narratorStopBtn.classList.add('flex');
+        } else if (state === 'paused') {
+          isPaused = true;
+          narratorEq.classList.remove('eq-playing');
+          narratorStatusPill.textContent = 'In pausa';
+          narratorStatusPill.className = 'px-2 py-0.5 rounded-full bg-sunny text-navy text-[10px] font-bold shrink-0';
+          narratorPauseBtn.textContent = '▶️';
+        } else {
+          isSpeaking = false;
+          isPaused = false;
+          narratorEq.classList.remove('eq-playing');
+          narratorStatusPill.textContent = 'Pronto';
+          narratorStatusPill.className = 'px-2 py-0.5 rounded-full bg-white/15 text-[10px] font-bold text-white/90 shrink-0';
+          narratorProgressBar.style.width = '0%';
+          narratorPlayDemoBtn.classList.remove('hidden');
+          narratorPauseBtn.classList.add('hidden');
+          narratorPauseBtn.classList.remove('flex');
+          narratorStopBtn.classList.add('hidden');
+          narratorStopBtn.classList.remove('flex');
+        }
+      }
+
+      function stopReading() {
+        activeSpeechRequestId++;
+        if (currentAudioEl) {
+          try { currentAudioEl.pause(); currentAudioEl.onended = null; currentAudioEl.src = ''; } catch (e) {}
+          currentAudioEl = null;
+        }
+        if (currentAudioUrl) {
+          try { URL.revokeObjectURL(currentAudioUrl); } catch (e) {}
+          currentAudioUrl = null;
+        }
+        if ('speechSynthesis' in window) {
+          try { window.speechSynthesis.cancel(); } catch (e) {}
+        }
+        setPlayerUIState('idle');
+      }
+
+      async function tryElevenLabsSpeech(text, apiKey, requestId) {
+        const cacheKey = `${apiKey.slice(-6)}::${text}`;
+        if (elevenLabsCache.has(cacheKey)) return elevenLabsCache.get(cacheKey);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4500);
+        try {
+          const voiceId = 'XB0fDUnXU5powFXDhCwa';
+          const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+            method: 'POST',
+            headers: { 'xi-api-key': apiKey, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg' },
+            body: JSON.stringify({
+              text: prepareItalianSpeechText(text),
+              model_id: 'eleven_multilingual_v2',
+              voice_settings: { stability: 0.55, similarity_boost: 0.78 }
+            }),
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+          if (!res.ok || requestId !== activeSpeechRequestId) return null;
+          const blob = await res.blob();
+          elevenLabsCache.set(cacheKey, blob);
+          return blob;
+        } catch (e) {
+          clearTimeout(timeoutId);
+          return null;
+        }
+      }
+
+      async function speakItalianText(title, fullText) {
+        stopReading();
+        const requestId = ++activeSpeechRequestId;
+        setPlayerUIState('playing', title);
+        narratorProgressBar.style.width = '8%';
+
+        const userElevenKey = (elevenLabsKeyInput?.value || '').trim();
+        if (userElevenKey) {
+          narratorStatusPill.textContent = 'Caricamento HD...';
+          const blob = await tryElevenLabsSpeech(fullText, userElevenKey, requestId);
+          if (requestId !== activeSpeechRequestId) return;
+          if (blob) {
+            setPlayerUIState('playing', title);
+            currentAudioUrl = URL.createObjectURL(blob);
+            currentAudioEl = new Audio(currentAudioUrl);
+            currentAudioEl.playbackRate = speechRate / 0.96;
+            currentAudioEl.ontimeupdate = () => {
+              if (currentAudioEl && currentAudioEl.duration) {
+                const pct = Math.min(100, Math.round((currentAudioEl.currentTime / currentAudioEl.duration) * 100));
+                narratorProgressBar.style.width = `${pct}%`;
+              }
+            };
+            currentAudioEl.onended = () => { if (requestId === activeSpeechRequestId) stopReading(); };
+            await currentAudioEl.play();
+            return;
+          }
+        }
+
+        if (!('speechSynthesis' in window)) {
+          showToast('Il tuo browser non supporta la lettura vocale.', '🔇');
+          stopReading();
+          return;
+        }
+
+        const sentences = splitIntoNaturalSentences(fullText);
+        const itVoices = getItalianVoicesSorted();
+        const selectedVoice = itVoices.find(v => v.voiceURI === chosenVoiceURI) || itVoices[0] || null;
+        let sentenceIdx = 0;
+
+        function speakNextSentence() {
+          if (requestId !== activeSpeechRequestId) return;
+          if (sentenceIdx >= sentences.length) {
+            narratorProgressBar.style.width = '100%';
+            setTimeout(() => { if (requestId === activeSpeechRequestId) stopReading(); }, 350);
+            return;
+          }
+          const pct = Math.round(((sentenceIdx + 0.5) / sentences.length) * 100);
+          narratorProgressBar.style.width = `${Math.max(10, pct)}%`;
+
+          const utterance = new SpeechSynthesisUtterance(sentences[sentenceIdx]);
+          utterance.lang = 'it-IT';
+          if (selectedVoice) utterance.voice = selectedVoice;
+          utterance.rate = speechRate;
+          utterance.pitch = speechPitch;
+
+          utterance.onend = () => {
+            if (requestId !== activeSpeechRequestId) return;
+            sentenceIdx++;
+            setTimeout(speakNextSentence, 90);
+          };
+          utterance.onerror = () => {
+            if (requestId !== activeSpeechRequestId) return;
+            sentenceIdx++;
+            speakNextSentence();
+          };
+          window.speechSynthesis.speak(utterance);
+        }
+
+        setTimeout(() => { if (requestId === activeSpeechRequestId) speakNextSentence(); }, 40);
+      }
+
+      narratorPlayDemoBtn.addEventListener('click', () => {
+        speakItalianText(
+          'Convenzione ONU • Introduzione',
+          'Benvenuto! La Convenzione ONU sui diritti dell’infanzia e dell’adolescenza riconosce a tutti i bambini e i ragazzi fino a diciotto anni cinquantaquattro diritti fondamentali: il diritto al gioco, alla scuola, alla salute, ad avere un nome e ad essere sempre ascoltati!'
+        );
+      });
+
+      narratorPauseBtn.addEventListener('click', () => {
+        if (currentAudioEl) {
+          if (currentAudioEl.paused) { currentAudioEl.play(); setPlayerUIState('playing'); }
+          else { currentAudioEl.pause(); setPlayerUIState('paused'); }
+          return;
+        }
+        if ('speechSynthesis' in window && isSpeaking) {
+          if (isPaused) { window.speechSynthesis.resume(); setPlayerUIState('playing'); }
+          else { window.speechSynthesis.pause(); setPlayerUIState('paused'); }
+        }
+      });
+
+      narratorStopBtn.addEventListener('click', stopReading);
+
+      const speedSteps = [0.86, 0.96, 1.08];
+      const speedLabels = ['0.9x', '1.0x', '1.1x'];
+      let speedStepIdx = 1;
+
+      narratorSpeedBtn.addEventListener('click', () => {
+        speedStepIdx = (speedStepIdx + 1) % speedSteps.length;
+        speechRate = speedSteps[speedStepIdx];
+        narratorSpeedBtn.textContent = speedLabels[speedStepIdx];
+        if (currentAudioEl) currentAudioEl.playbackRate = speechRate / 0.96;
+        showToast(`Velocità lettura: ${speedLabels[speedStepIdx]}`, '🎙️');
+      });
+
+      function openVoiceModal() {
+        populateItalianVoicesList();
+        voiceModal.classList.remove('hidden');
+        voiceModal.classList.add('flex');
+      }
+
+      document.getElementById('voice-settings-btn').addEventListener('click', openVoiceModal);
+      document.getElementById('narrator-gear-btn').addEventListener('click', openVoiceModal);
+
+      function closeVoiceModal() {
+        voiceModal.classList.add('hidden');
+        voiceModal.classList.remove('flex');
+      }
+
+      document.getElementById('close-voice-modal-btn').addEventListener('click', closeVoiceModal);
+      document.getElementById('done-voice-modal-btn').addEventListener('click', closeVoiceModal);
+      voiceModal.addEventListener('click', (e) => { if (e.target === voiceModal) closeVoiceModal(); });
+
+      systemVoiceSelect.addEventListener('change', (e) => {
+        chosenVoiceURI = e.target.value;
+        populateItalianVoicesList();
+      });
+
+      document.querySelectorAll('.voice-pitch-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.voice-pitch-btn').forEach(b => {
+            b.classList.remove('active', 'border-unicef', 'bg-softblue', 'text-unicef');
+            b.classList.add('border-navy/15', 'bg-cream', 'text-navy');
+          });
+          btn.classList.add('active', 'border-unicef', 'bg-softblue', 'text-unicef');
+          btn.classList.remove('border-navy/15', 'bg-cream', 'text-navy');
+          speechPitch = parseFloat(btn.dataset.pitch);
+        });
+      });
+
+      document.querySelectorAll('.voice-rate-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.voice-rate-btn').forEach(b => {
+            b.classList.remove('active', 'border-unicef', 'bg-softblue', 'text-unicef');
+            b.classList.add('border-navy/15', 'bg-cream', 'text-navy');
+          });
+          btn.classList.add('active', 'border-unicef', 'bg-softblue', 'text-unicef');
+          btn.classList.remove('border-navy/15', 'bg-cream', 'text-navy');
+          speechRate = parseFloat(btn.dataset.rate);
+          const idx = speedSteps.indexOf(speechRate);
+          if (idx !== -1) {
+            speedStepIdx = idx;
+            narratorSpeedBtn.textContent = speedLabels[idx];
+          }
+          if (currentAudioEl) currentAudioEl.playbackRate = speechRate / 0.96;
+        });
+      });
+
+      document.getElementById('test-voice-btn').addEventListener('click', () => {
+        speakItalianText(
+          'Prova Voce Narrante',
+          'Ciao! Sono la tua narratrice. Insieme esploreremo i cinquantaquattro articoli della Convenzione ONU sui diritti dei bambini e degli adolescenti!'
+        );
+      });
+
+      document.getElementById('hero-read-btn').addEventListener('click', () => {
+        speakItalianText(
+          'Introduzione alla Convenzione ONU',
+          'I Nostri Diritti: la Convenzione ONU sui Diritti dell’Infanzia e dell’Adolescenza. Approvata dall’Assemblea Generale delle Nazioni Unite il 20 novembre 1989 e ratificata dall’Italia nel 1991, la Convenzione è una promessa fatta dai grandi a tutti i bambini e i ragazzi del mondo: 54 articoli che riconoscono a chiunque abbia meno di 18 anni diritti fondamentali, universali e inalienabili.'
+        );
+      });
+
+      let toastTimeout = null;
+      function showToast(message, icon = '✨') {
+        const banner = document.getElementById('toast-banner');
+        document.getElementById('toast-text').textContent = message;
+        document.getElementById('toast-icon').textContent = icon;
+        banner.classList.remove('translate-y-24', 'opacity-0');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => { banner.classList.add('translate-y-24', 'opacity-0'); }, 3500);
+      }
+
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', String(!isHidden));
+      });
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      const principleTexts = [
+        {
+          title: 'Articolo 2: Non discriminazione',
+          text: 'Articolo 2: Non discriminazione. Tutti uguali, nessuno escluso. Tutti i diritti della Convenzione valgono per ogni bambino e ragazzo senza alcuna eccezione: non importa il colore della pelle, il genere, la lingua, la religione, le opinioni, la disabilità o la situazione economica della famiglia. A scuola e nel quartiere, nessuno può essere preso in giro o lasciato fuori da un gioco.'
+        },
+        {
+          title: 'Articolo 3: Superiore interesse del minore',
+          text: 'Articolo 3: Superiore interesse del minore. Il tuo bene prima di tutto. In ogni decisione presa da genitori, insegnanti, giudici, sindaci o governi che riguarda i bambini e i ragazzi, la prima domanda deve essere: Qual è la scelta migliore per il loro benessere e la loro crescita?'
+        },
+        {
+          title: 'Articolo 6: Vita, sopravvivenza e sviluppo',
+          text: 'Articolo 6: Vita, sopravvivenza e sviluppo. Crescere sani e felici. Ogni bambino ha il diritto fondamentale alla vita e gli Stati devono fare tutto il possibile affinché possa crescere sano, nutrito, protetto e sviluppare al massimo i propri talenti fisici, mentali, emotivi e sociali.'
+        },
+        {
+          title: 'Articolo 12: Ascolto e partecipazione',
+          text: 'Articolo 12: Ascolto e partecipazione. La tua voce conta. Hai il diritto di esprimere liberamente la tua opinione su tutte le questioni che ti riguardano e gli adulti hanno il dovere di ascoltarti con attenzione e prendere sul serio ciò che pensi, tenendo conto della tua età.'
+        }
+      ];
+
+      document.querySelectorAll('[data-read-principle]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const idx = Number(btn.dataset.readPrinciple);
+          const p = principleTexts[idx];
+          if (p) speakItalianText(p.title, p.text);
+        });
+      });
+
+      document.querySelectorAll('.principle-card').forEach(card => {
+        card.addEventListener('click', () => {
+          playChime('tap');
+          const details = card.querySelector('.principle-details');
+          const icon = card.querySelector('.principle-toggle-icon');
+          const isOpen = !details.classList.contains('hidden');
+          details.classList.toggle('hidden');
+          icon.textContent = isOpen ? 'Scopri +' : 'Chiudi −';
+        });
+      });
+
+      const articlesData = [
+        { num: 'Articolo 1', title: 'Chi sono i bambini e gli adolescenti', category: 'Identità e Famiglia', icon: '🧒', color: 'unicef', simple: 'La Convenzione protegge tutte le persone dal momento in cui nascono fino al compimento dei 18 anni di età.', everyday: 'Che tu abbia 3 anni alla scuola dell’infanzia o 16 anni alle superiori, tutti i 54 articoli della Convenzione appartengono anche a te!', action: '💡 Ricorda: i diritti non dipendono da quanto sei grande o piccolo.' },
+        { num: 'Articolo 2', title: 'Nessuna discriminazione', category: 'Voce e Libertà', icon: '🤝', color: 'coral', simple: 'Tutti i bambini e i ragazzi hanno gli stessi identici diritti, senza alcuna distinzione di pelle, genere, lingua, religione, origine o disabilità.', everyday: 'In squadra, a scuola o al parco nessuno può essere escluso perché parla un’altra lingua, ha una disabilità o viene da un’altra città.', action: '💡 Cosa puoi fare: Invita a giocare chi resta in disparte!' },
+        { num: 'Articolo 3', title: 'Il tuo bene prima di tutto', category: 'Protezione', icon: '🛡️', color: 'unicef', simple: 'Ogni volta che gli adulti prendono una decisione che riguarda i ragazzi, devono scegliere ciò che è meglio per la loro sicurezza e felicità.', everyday: 'Quando si costruisce una nuova scuola o si organizza un’attività sportiva, bisogna mettere al primo posto i bisogni dei ragazzi.', action: '💡 Cosa puoi fare: Chiedi agli adulti di spiegarti il perché delle regole.' },
+        { num: 'Articolo 6', title: 'Diritto alla vita e a crescere bene', category: 'Salute e Benessere', icon: '🌱', color: 'mint', simple: 'Ogni bambino ha il diritto di vivere e di ricevere tutto l’aiuto necessario per crescere sano nel corpo, nella mente e nelle emozioni.', everyday: 'Avere cure, affetto, un ambiente sicuro e la possibilità di sviluppare le proprie passioni ti permette di diventare grande serenamente.', action: '💡 Cosa puoi fare: Coltiva ogni giorno una passione che ti fa stare bene.' },
+        { num: 'Articoli 7 e 8', title: 'Un nome, una nazionalità e un’identità', category: 'Identità e Famiglia', icon: '🪪', color: 'unicef', simple: 'Appena nasci hai il diritto di avere un nome, un cognome, una cittadinanza e di conoscere e mantenere la tua storia familiare.', everyday: 'Il tuo nome ti rende unico e riconosciuto dalla legge: grazie alla registrazione alla nascita puoi andare a scuola e ricevere cure.', action: '💡 Curiosità: Chiedi ai tuoi genitori perché hanno scelto proprio il tuo nome!' },
+        { num: 'Articolo 9', title: 'Vivere con la propria famiglia', category: 'Identità e Famiglia', icon: '🏡', color: 'unicef', simple: 'Hai il diritto di vivere con i tuoi genitori, a meno che ciò non sia pericoloso per te. Se i genitori non vivono insieme, hai diritto a mantenere i rapporti con entrambi.', everyday: 'Anche se mamma e papà si separano, entrambi continuano a volerti bene e hai diritto a vederli e sentirli regolarmente.', action: '💡 Ricorda: La famiglia è il primo luogo dove ci si prende cura gli uni degli altri.' },
+        { num: 'Articolo 12', title: 'Diritto di essere ascoltati', category: 'Voce e Libertà', icon: '📣', color: 'sunny', simple: 'Hai il diritto di dire la tua opinione su tutto ciò che ti riguarda e gli adulti devono ascoltarti e tenerne conto.', everyday: 'A scuola puoi partecipare alle assemblee di classe o al Consiglio Comunale dei Ragazzi per proporre idee concrete.', action: '💡 Cosa puoi fare: Esprimi sempre le tue idee con rispetto e coraggio.' },
+        { num: 'Articoli 13 e 14', title: 'Libertà di espressione e di pensiero', category: 'Voce e Libertà', icon: '✍️', color: 'sunny', simple: 'Puoi esprimere le tue idee parlando, scrivendo, disegnando o suonando, e hai libertà di pensiero, coscienza e religione, rispettando sempre gli altri.', everyday: 'Puoi scrivere un articolo per il giornalino scolastico o fare un disegno per raccontare cosa pensi del mondo.', action: '💡 Ricorda: La libertà di espressione significa anche rispettare le idee diverse dalle tue.' },
+        { num: 'Articolo 16', title: 'Diritto alla privacy', category: 'Protezione', icon: '🔒', color: 'coral', simple: 'Nessuno può invadere senza motivo la tua vita privata, leggere i tuoi diari o messaggi personali, né diffondere foto senza permesso.', everyday: 'Anche sui social o nelle chat di gruppo, nessuno può pubblicare una tua foto o prendere in giro la tua reputazione online.', action: '💡 Regola d’oro digitale: Chiedi sempre il permesso prima di condividere foto di amici!' },
+        { num: 'Articolo 17', title: 'Informazioni adatte e sicure', category: 'Voce e Libertà', icon: '📰', color: 'unicef', simple: 'Hai il diritto di accedere a libri, giornali, TV e siti internet affidabili che ti aiutino a conoscere il mondo, proteggendoti da contenuti dannosi.', everyday: 'Le biblioteche scolastiche e i programmi per ragazzi esistono per offrirti notizie vere e storie che arricchiscono la mente.', action: '💡 Consiglio: Verifica sempre insieme a un adulto se una notizia letta online è vera.' },
+        { num: 'Articolo 19', title: 'Protezione da ogni violenza', category: 'Protezione', icon: '🫂', color: 'coral', simple: 'Gli adulti devono proteggerti da ogni forma di violenza fisica o psicologica, maltrattamento, abbandono o bullismo.', everyday: 'Nessuno ha il diritto di picchiarti, umiliarti o farti del male, né a casa, né a scuola, né in rete.', action: '💡 Importante: Se subisci o vedi un episodio di bullismo, parlane subito con un adulto di fiducia.' },
+        { num: 'Articolo 22', title: 'Protezione dei bambini rifugiati', category: 'Protezione', icon: '🕊️', color: 'coral', simple: 'Se sei costretto a lasciare il tuo Paese a causa di guerre o persecuzioni, hai diritto a ricevere protezione, accoglienza e aiuto speciale.', everyday: 'I ragazzi che arrivano da lontano in cerca di pace devono trovare scuole accoglienti, cure e supporto per ricongiungersi con la famiglia.', action: '💡 Gesto concreto: Accogli con un sorriso i nuovi compagni arrivati da altri Paesi.' },
+        { num: 'Articolo 23', title: 'Diritti dei bambini con disabilità', category: 'Salute e Benessere', icon: '♿', color: 'mint', simple: 'Se hai una disabilità fisica o mentale, hai diritto a cure speciali, sostegno scolastico e spazi accessibili per vivere una vita piena e autonoma.', everyday: 'Scuole senza barriere architettoniche, libri in Braille o insegnanti di sostegno servono a garantire a tutti le stesse opportunità.', action: '💡 Rifletti: Una scuola accessibile è una scuola più bella per tutti.' },
+        { num: 'Articolo 24', title: 'Salute, cure mediche e acqua pulita', category: 'Salute e Benessere', icon: '🩺', color: 'mint', simple: 'Hai il diritto di essere curato quando stai male, di bere acqua pulita, mangiare cibo sano e vivere in un ambiente non inquinato.', everyday: 'Andare dal pediatra, fare i vaccini e poter bere acqua potabile dal rubinetto sono diritti fondamentali per stare bene.', action: '💡 Gesto quotidiano: Non sprecare l’acqua e prenditi cura della tua salute.' },
+        { num: 'Articolo 27', title: 'Una casa e una vita dignitosa', category: 'Salute e Benessere', icon: '🏠', color: 'mint', simple: 'Hai il diritto di vivere in un’abitazione sicura e accogliente, con vestiti adeguati e cibo sufficiente per crescere serenamente.', everyday: 'Quando una famiglia attraversa difficoltà economiche, lo Stato deve aiutarla affinché ai figli non manchi l’essenziale.', action: '💡 Solidarietà: Donare giochi o vestiti che non usi più aiuta altri bambini.' },
+        { num: 'Articoli 28 e 29', title: 'Diritto all’istruzione di qualità', category: 'Scuola e Gioco', icon: '🎒', color: 'sunny', simple: 'Tutti i bambini hanno diritto ad andare a scuola gratuitamente e a ricevere un’educazione che sviluppi i propri talenti e il rispetto per la natura e gli altri.', everyday: 'Imparare a leggere, scrivere, fare scienze e lavorare in gruppo ti dà gli strumenti per costruire il tuo futuro in libertà.', action: '💡 Ricorda: Nel mondo milioni di bambini sognano di avere un banco di scuola!' },
+        { num: 'Articolo 30', title: 'Rispetto della cultura e della lingua', category: 'Identità e Famiglia', icon: '🌍', color: 'unicef', simple: 'Se appartieni a una minoranza o a una comunità indigena, hai il diritto di parlare la tua lingua, praticare la tua cultura e la tua religione.', everyday: 'Conoscere e raccontare le tradizioni, le feste e le lingue delle diverse famiglie rende la nostra comunità più ricca.', action: '💡 Scoperta: Impara a dire "Ciao" e "Grazie" nelle lingue dei tuoi compagni!' },
+        { num: 'Articolo 31', title: 'Diritto al gioco, al riposo e all’arte', category: 'Scuola e Gioco', icon: '⚽', color: 'sunny', simple: 'Hai il diritto di riposarti, avere tempo libero, giocare e partecipare ad attività sportive, culturali e artistiche adatte alla tua età.', everyday: 'Giocare all’aperto, fare sport, suonare uno strumento o andare a teatro non è una perdita di tempo: è un diritto fondamentale!', action: '💡 Consiglio: Alterna sempre i compiti al gioco all’aria aperta con gli amici.' },
+        { num: 'Articolo 32', title: 'Protezione dal lavoro minorile', category: 'Protezione', icon: '🚫', color: 'coral', simple: 'Hai il diritto di essere protetto da lavori pericolosi o che ti impediscano di andare a scuola e di crescere sano.', everyday: 'Il "lavoro" dei bambini e dei ragazzi è studiare, giocare e scoprire il mondo, non lavorare in fabbrica o nei campi!', action: '💡 Lo sapevi? Nel mondo oltre 160 milioni di minori sono ancora vittime di lavoro minorile.' },
+        { num: 'Articolo 38', title: 'Protezione dalla guerra e dai conflitti', category: 'Protezione', icon: '🕊️', color: 'coral', simple: 'Nessun ragazzo sotto i 18 anni deve partecipare alle guerre e gli Stati devono proteggere con ogni mezzo i bambini che vivono in zone di conflitto.', everyday: 'La pace è la condizione indispensabile affinché tutti gli altri diritti dell’infanzia possano essere rispettati.', action: '💡 Costruttori di pace: Risolvi i litigi con il dialogo, mai con la forza.' }
+      ];
+
+      let currentCategory = 'Tutti';
+      let currentSearch = '';
+      let filteredArticles = [...articlesData];
+      let currentModalIndex = 0;
+
+      const articlesGrid = document.getElementById('articles-grid');
+      const noArticlesState = document.getElementById('no-articles-state');
+
+      function getBadgeStyle(color) {
+        switch (color) {
+          case 'coral': return 'bg-coral text-white';
+          case 'mint': return 'bg-emerald-600 text-white';
+          case 'sunny': return 'bg-amber-500 text-white';
+          default: return 'bg-unicef text-white';
+        }
+      }
+
+      function getBorderHover(color) {
+        switch (color) {
+          case 'coral': return 'hover:border-coral';
+          case 'mint': return 'hover:border-mint';
+          case 'sunny': return 'hover:border-sunny';
+          default: return 'hover:border-unicef';
+        }
+      }
+
+      function renderArticles() {
+        filteredArticles = articlesData.filter(item => {
+          const matchesCat = currentCategory === 'Tutti' || item.category === currentCategory;
+          const q = currentSearch.trim().toLowerCase();
+          const matchesQuery = !q || item.num.toLowerCase().includes(q) || item.title.toLowerCase().includes(q) || item.simple.toLowerCase().includes(q) || item.category.toLowerCase().includes(q);
+          return matchesCat && matchesQuery;
+        });
+
+        articlesGrid.innerHTML = '';
+        if (filteredArticles.length === 0) {
+          noArticlesState.classList.remove('hidden');
+          return;
+        }
+        noArticlesState.classList.add('hidden');
+
+        filteredArticles.forEach((article, idx) => {
+          const card = document.createElement('article');
+          card.className = `bg-white rounded-3xl p-5 border-2 border-navy/10 ${getBorderHover(article.color)} shadow-card transition-all duration-200 hover:-translate-y-1.5 cursor-pointer flex flex-col justify-between group`;
+          card.setAttribute('tabindex', '0');
+          card.setAttribute('role', 'button');
+          card.setAttribute('aria-label', `Apri dettagli ${article.num}: ${article.title}`);
+
+          card.innerHTML = `
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="px-3 py-1 rounded-full text-xs font-bold ${getBadgeStyle(article.color)}">${article.num}</span>
+                <span class="text-3xl group-hover:scale-110 transition-transform" aria-hidden="true">${article.icon}</span>
+              </div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-navy/60 block mb-1">${article.category}</span>
+              <h3 class="font-display font-bold text-lg text-navy leading-snug mb-2 group-hover:text-unicef transition-colors">${article.title}</h3>
+              <p class="text-sm text-navy/80 line-clamp-3 leading-relaxed">${article.simple}</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-navy/10 flex items-center justify-between gap-2 text-xs font-bold text-unicef">
+              <span>Leggi scheda illustrata →</span>
+              <button type="button" class="card-speak-btn px-2.5 py-1 rounded-lg bg-softblue text-unicef hover:bg-unicef hover:text-white transition-colors" title="Ascolta questo articolo">🎙️ Ascolta</button>
+            </div>
+          `;
+
+          card.querySelector('.card-speak-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            speakItalianText(`${article.num}: ${article.title}`, `${article.num}: ${article.title}. In parole semplici: ${article.simple} Nella vita di tutti i giorni: ${article.everyday}`);
+          });
+
+          card.addEventListener('click', () => openArticleModal(idx));
+          card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openArticleModal(idx); } });
+          articlesGrid.appendChild(card);
+        });
+      }
+
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          playChime('tap');
+          document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active', 'bg-navy', 'text-white', 'shadow-sm'));
+          btn.classList.add('active', 'bg-navy', 'text-white', 'shadow-sm');
+          currentCategory = btn.dataset.category;
+          renderArticles();
+        });
+      });
+
+      const searchInput = document.getElementById('article-search');
+      const clearSearchBtn = document.getElementById('clear-search-btn');
+
+      searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value;
+        clearSearchBtn.classList.toggle('hidden', currentSearch.length === 0);
+        renderArticles();
+      });
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        currentSearch = '';
+        clearSearchBtn.classList.add('hidden');
+        renderArticles();
+      });
+
+      document.getElementById('reset-filters-btn').addEventListener('click', () => {
+        searchInput.value = '';
+        currentSearch = '';
+        clearSearchBtn.classList.add('hidden');
+        currentCategory = 'Tutti';
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active', 'bg-navy', 'text-white', 'shadow-sm'));
+        document.querySelector('.cat-btn[data-category="Tutti"]').classList.add('active', 'bg-navy', 'text-white', 'shadow-sm');
+        renderArticles();
+      });
+
+      const articleModal = document.getElementById('article-modal');
+
+      function openArticleModal(index) {
+        playChime('tap');
+        currentModalIndex = index;
+        const item = filteredArticles[index];
+        if (!item) return;
+
+        document.getElementById('modal-article-icon').textContent = item.icon;
+        document.getElementById('modal-article-number').textContent = item.num;
+        document.getElementById('modal-article-category').textContent = item.category;
+        document.getElementById('modal-article-title').textContent = item.title;
+        document.getElementById('modal-article-simple').textContent = item.simple;
+        document.getElementById('modal-article-everyday').textContent = item.everyday;
+        document.getElementById('modal-article-action').textContent = item.action;
+
+        articleModal.classList.remove('hidden');
+        articleModal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeArticleModal() {
+        articleModal.classList.add('hidden');
+        articleModal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+
+      document.getElementById('close-modal-btn').addEventListener('click', closeArticleModal);
+      articleModal.addEventListener('click', (e) => { if (e.target === articleModal) closeArticleModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !articleModal.classList.contains('hidden')) closeArticleModal(); });
+
+      document.getElementById('modal-prev-btn').addEventListener('click', () => {
+        const prevIdx = (currentModalIndex - 1 + filteredArticles.length) % filteredArticles.length;
+        openArticleModal(prevIdx);
+      });
+
+      document.getElementById('modal-next-btn').addEventListener('click', () => {
+        const nextIdx = (currentModalIndex + 1) % filteredArticles.length;
+        openArticleModal(nextIdx);
+      });
+
+      document.getElementById('modal-read-article-btn').addEventListener('click', () => {
+        const item = filteredArticles[currentModalIndex];
+        if (!item) return;
+        const cleanAction = item.action.replace(/^💡\s*/, '');
+        speakItalianText(`${item.num}: ${item.title}`, `${item.num}: ${item.title}. In parole semplici: ${item.simple} Nella vita di tutti i giorni: ${item.everyday} ${cleanAction}`);
+      });
+
+      renderArticles();
+
+      const tabYtEmbed = document.getElementById('tab-yt-embed');
+      const tabLyrics = document.getElementById('tab-interactive-lyrics');
+      const videoEmbedContainer = document.getElementById('video-embed-container');
+      const lyricsContainer = document.getElementById('interactive-lyrics-container');
+
+      tabYtEmbed.addEventListener('click', () => {
+        playChime('tap');
+        tabYtEmbed.classList.add('bg-unicef', 'text-white');
+        tabYtEmbed.classList.remove('text-navy');
+        tabLyrics.classList.remove('bg-unicef', 'text-white');
+        tabLyrics.classList.add('text-navy');
+        videoEmbedContainer.classList.remove('hidden');
+        lyricsContainer.classList.add('hidden');
+      });
+
+      tabLyrics.addEventListener('click', () => {
+        playChime('tap');
+        tabLyrics.classList.add('bg-unicef', 'text-white');
+        tabLyrics.classList.remove('text-navy');
+        tabYtEmbed.classList.remove('bg-unicef', 'text-white');
+        tabYtEmbed.classList.add('text-navy');
+        lyricsContainer.classList.remove('hidden');
+        videoEmbedContainer.classList.add('hidden');
+      });
+
+      document.getElementById('read-lyrics-btn').addEventListener('click', () => {
+        speakItalianText(
+          'Il Rap dei Diritti dei Bambini',
+          'Strofa 1, Identità e Uguaglianza: Abbiamo diritto a un nome e a una casa, nessuno ci esclude, nessuno ci schiaccia! Strofa 2, Scuola e Futuro: Andare a scuola per poter imparare, scoprire il mondo, crescere e sognare! Strofa 3, Gioco e Tempo Libero: Il gioco non è un lusso, è un diritto vero: ridere insieme sotto lo stesso cielo! Ritornello: Ascolta la nostra voce, siamo il presente: i diritti dei bambini proteggono la gente!'
+        );
+      });
+
+      const playRapBeatBtn = document.getElementById('play-rap-beat-btn');
+      const rapBeatLabel = document.getElementById('rap-beat-label');
+      let beatPlaying = false;
+
+      playRapBeatBtn.addEventListener('click', () => {
+        if (beatPlaying) {
+          clearInterval(rapLoopInterval);
+          beatPlaying = false;
+          rapBeatLabel.textContent = 'Avvia Ritmo';
+          return;
+        }
+        if (!soundEnabled) {
+          showToast('Attiva prima l’audio in alto a destra per sentire il ritmo!', '🔊');
+          return;
+        }
+        initAudio();
+        beatPlaying = true;
+        rapBeatLabel.textContent = 'Ferma Ritmo';
+        let step = 0;
+        rapLoopInterval = setInterval(() => {
+          try {
+            if (!synth) return;
+            const now = Tone.now();
+            if (step % 4 === 0) synth.triggerAttackRelease('C3', '16n', now);
+            if (step % 4 === 2) synth.triggerAttackRelease('G3', '16n', now);
+            if (step % 2 === 1) synth.triggerAttackRelease('E4', '32n', now);
+            step++;
+          } catch (e) {}
+        }, 320);
+      });
+
+      const reflectionReadTexts = [
+        { title: 'Spunto 1: Diritto chiama Dovere', text: 'Diritto chiama Dovere: cosa significa? I diritti dei bambini non vanno guadagnati, perché appartengono a tutti fin dalla nascita. Però, quando viviamo insieme agli altri, rispettare i diritti dei compagni aiuta tutti a stare bene! Sfida in classe: Scrivete 3 gesti gentili che proteggono i diritti di un compagno.' },
+        { title: 'Spunto 2: Raccontare i diritti con una canzone', text: 'Quale diritto vorresti raccontare con una canzone? I ragazzi di Praia a Mare hanno usato il rap per far conoscere la Convenzione ONU a tutti. La musica, il disegno e il teatro sono modi potentissimi per esercitare l’Articolo 13 e l’Articolo 31. Sfida creativa: Inventa una rima di 2 versi sul tuo diritto preferito!' },
+        { title: 'Spunto 3: I diritti dei bambini nel mondo', text: 'Tutti i bambini nel mondo vedono rispettati i loro diritti? Purtroppo oggi milioni di bambini nel mondo non possono andare a scuola, vivono in zone di guerra o non hanno acqua pulita. Conoscere la Convenzione ci aiuta a capire che i diritti non sono scontati e che possiamo difenderli insieme.' }
+      ];
+
+      document.querySelectorAll('[data-read-reflection]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const idx = Number(btn.dataset.readReflection);
+          const item = reflectionReadTexts[idx];
+          if (item) speakItalianText(item.title, item.text);
+        });
+      });
+
+      document.querySelectorAll('.reflection-item').forEach(item => {
+        item.addEventListener('click', () => {
+          playChime('tap');
+          const body = item.querySelector('.reflection-body');
+          const chev = item.querySelector('.reflection-chevron');
+          const isOpen = !body.classList.contains('hidden');
+          body.classList.toggle('hidden');
+          chev.textContent = isOpen ? '+' : '−';
+        });
+      });
+
+      document.querySelectorAll('.game-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          playChime('tap');
+          const targetGame = btn.dataset.gameTab;
+          document.querySelectorAll('.game-tab-btn').forEach(b => {
+            b.classList.remove('active', 'bg-unicef', 'text-white', 'border-unicef', 'shadow-playful');
+            b.classList.add('bg-white', 'text-navy', 'border-navy/15');
+          });
+          btn.classList.add('active', 'bg-unicef', 'text-white', 'border-unicef', 'shadow-playful');
+          btn.classList.remove('bg-white', 'text-navy', 'border-navy/15');
+          document.querySelectorAll('.game-panel').forEach(panel => panel.classList.add('hidden'));
+          document.getElementById(`game-panel-${targetGame}`).classList.remove('hidden');
+        });
+      });
+
+      const quizQuestions = [
+        { emoji: '🏫', scenario: 'Durante l’intervallo, un gruppo di ragazzi non vuole far giocare Marco perché è appena arrivato da un altro Paese e non parla ancora bene l’italiano.', options: ['Art. 2 – Diritto alla non discriminazione', 'Art. 16 – Diritto alla privacy online', 'Art. 32 – Protezione dal lavoro minorile'], correct: 0, explanation: 'Esatto! L’Articolo 2 stabilisce che nessun bambino può essere escluso o trattato diversamente per la sua origine, lingua o nazionalità.' },
+        { emoji: '🗣️', scenario: 'Il Comune decide di ristrutturare il parco del quartiere e organizza un incontro con i bambini e i ragazzi delle scuole per chiedere quali giochi vorrebbero.', options: ['Art. 7 – Diritto ad avere un nome', 'Art. 12 – Diritto all’ascolto e alla partecipazione', 'Art. 38 – Protezione dalle guerre'], correct: 1, explanation: 'Bravissimo! L’Articolo 12 riconosce ai ragazzi il diritto di esprimere la propria opinione sulle decisioni che li riguardano e di essere presi sul serio.' },
+        { emoji: '⚽', scenario: 'Sofia ha 10 anni ma ogni pomeriggio, appena finita la scuola, viene obbligata a lavorare in un laboratorio fino a tarda sera senza poter mai riposare né giocare.', options: ['Art. 31 & Art. 32 – Diritto al gioco e protezione dal lavoro minorile', 'Art. 14 – Libertà di pensiero e coscienza', 'Art. 17 – Accesso ai giornali e ai libri'], correct: 0, explanation: 'Perfetto! Qui vengono violati sia l’Articolo 31 (diritto al gioco e al riposo) sia l’Articolo 32 (protezione dallo sfruttamento lavorativo).' },
+        { emoji: '📱', scenario: 'Un compagno scatta una foto buffa a Luca negli spogliatoi senza permesso e la condivide su una chat pubblica per farlo deridere.', options: ['Art. 24 – Diritto all’acqua pulita', 'Art. 16 – Diritto al rispetto della vita privata (privacy)', 'Art. 9 – Diritto a vivere con i genitori'], correct: 1, explanation: 'Proprio così! L’Articolo 16 protegge la privacy, l’immagine e la dignità di ogni bambino e adolescente anche nel mondo digitale.' },
+        { emoji: '🩺', scenario: 'Giulia ha la febbre alta e viene accompagnata all’ambulatorio pediatrico dove riceve gratuitamente le visite e le medicine necessarie per guarire.', options: ['Art. 24 – Diritto alla salute e alle cure mediche', 'Art. 30 – Rispetto della lingua delle minoranze', 'Art. 13 – Libertà di espressione artistica'], correct: 0, explanation: 'Ottimo! L’Articolo 24 garantisce a tutti i bambini il diritto di godere del miglior stato di salute possibile e di ricevere cure mediche.' },
+        { emoji: '♿', scenario: 'Una scuola installa una rampa d’accesso e acquista materiali didattici inclusivi affinché Matteo, che usa la sedia a rotelle, possa partecipare a tutte le lezioni e gite.', options: ['Art. 23 – Diritti dei bambini con disabilità', 'Art. 22 – Protezione dei bambini rifugiati', 'Art. 1 – Definizione di minore di 18 anni'], correct: 0, explanation: 'Fantastico! L’Articolo 23 afferma che i ragazzi con disabilità hanno diritto a ricevere tutto il sostegno necessario per partecipare pienamente alla vita sociale.' }
+      ];
+
+      let quizIdx = 0; let quizScore = 0; let quizAnswered = false;
+
+      function renderQuizQuestion() {
+        quizAnswered = false;
+        const q = quizQuestions[quizIdx];
+        document.getElementById('quiz-progress-text').textContent = `Domanda ${quizIdx + 1} / ${quizQuestions.length}`;
+        document.getElementById('quiz-progress-bar').style.width = `${((quizIdx + 1) / quizQuestions.length) * 100}%`;
+        document.getElementById('quiz-scenario-emoji').textContent = q.emoji;
+        document.getElementById('quiz-scenario-text').textContent = q.scenario;
+        document.getElementById('quiz-feedback').classList.add('hidden');
+
+        const optionsContainer = document.getElementById('quiz-options');
+        optionsContainer.innerHTML = '';
+
+        q.options.forEach((optText, i) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'w-full text-left p-4 sm:p-5 rounded-2xl border-2 border-navy/15 bg-cream hover:bg-softblue hover:border-unicef font-semibold text-navy transition-all flex items-center gap-3';
+          btn.innerHTML = `<span class="w-8 h-8 rounded-xl bg-white border border-navy/15 font-display font-bold flex items-center justify-center shrink-0">${String.fromCharCode(65 + i)}</span><span>${optText}</span>`;
+          btn.addEventListener('click', () => handleQuizAnswer(i));
+          optionsContainer.appendChild(btn);
+        });
+      }
+
+      function handleQuizAnswer(selectedIndex) {
+        if (quizAnswered) return;
+        quizAnswered = true;
+        const q = quizQuestions[quizIdx];
+        const isCorrect = selectedIndex === q.correct;
+
+        document.querySelectorAll('#quiz-options button').forEach((b, idx) => {
+          b.disabled = true;
+          if (idx === q.correct) {
+            b.classList.remove('bg-cream', 'border-navy/15');
+            b.classList.add('bg-softmint', 'border-emerald-600', 'text-emerald-950');
+          } else if (idx === selectedIndex && !isCorrect) {
+            b.classList.remove('bg-cream', 'border-navy/15');
+            b.classList.add('bg-softcoral', 'border-coral', 'text-red-950');
+          }
+        });
+
+        const feedbackBox = document.getElementById('quiz-feedback');
+        feedbackBox.classList.remove('hidden', 'bg-softmint', 'border-mint', 'bg-softcoral', 'border-coral');
+
+        if (isCorrect) {
+          quizScore++;
+          document.getElementById('quiz-score-badge').textContent = `⭐ Punti: ${quizScore}`;
+          playChime('success');
+          feedbackBox.classList.add('bg-softmint', 'border-mint');
+          document.getElementById('quiz-feedback-icon').textContent = '🎉';
+          document.getElementById('quiz-feedback-title').textContent = 'Risposta Esatta!';
+        } else {
+          playChime('gentle');
+          feedbackBox.classList.add('bg-softcoral', 'border-coral');
+          document.getElementById('quiz-feedback-icon').textContent = '💡';
+          document.getElementById('quiz-feedback-title').textContent = 'Quasi! Ecco il diritto giusto:';
+        }
+
+        document.getElementById('quiz-feedback-explanation').textContent = q.explanation;
+        document.getElementById('quiz-next-btn').textContent = quizIdx < quizQuestions.length - 1 ? 'Prossima Domanda →' : 'Vedi il Risultato Finale 🏆';
+      }
+
+      document.getElementById('quiz-next-btn').addEventListener('click', () => {
+        if (quizIdx < quizQuestions.length - 1) {
+          quizIdx++;
+          renderQuizQuestion();
+        } else {
+          document.getElementById('quiz-question-area').classList.add('hidden');
+          const resArea = document.getElementById('quiz-result-area');
+          resArea.classList.remove('hidden');
+          document.getElementById('quiz-final-score').textContent = `Hai totalizzato ${quizScore} su ${quizQuestions.length} punti!`;
+          document.getElementById('quiz-final-message').textContent = quizScore >= 5 ? 'Straordinario! Conosci benissimo i diritti della Convenzione ONU e sai riconoscerli nelle situazioni quotidiane!' : 'Ottimo impegno! Continua a esplorare gli articoli per diventare un vero esperto dei diritti dell’infanzia.';
+          if (quizScore >= 4) { playChime('fanfare'); launchConfetti(); }
+        }
+      });
+
+      document.getElementById('quiz-restart-btn').addEventListener('click', () => {
+        quizIdx = 0; quizScore = 0;
+        document.getElementById('quiz-score-badge').textContent = '⭐ Punti: 0';
+        document.getElementById('quiz-result-area').classList.add('hidden');
+        document.getElementById('quiz-question-area').classList.remove('hidden');
+        renderQuizQuestion();
+      });
+
+      document.getElementById('quiz-read-scenario-btn').addEventListener('click', () => {
+        const q = quizQuestions[quizIdx];
+        if (q) speakItalianText(`Scenario ${quizIdx + 1}`, `${q.scenario} Qual è il diritto in gioco? Opzione A: ${q.options[0]}. Opzione B: ${q.options[1]}. Opzione C: ${q.options[2]}.`);
+      });
+
+      renderQuizQuestion();
+
+      const sortingCards = [
+        { emoji: '💧', title: 'Acqua pulita e cibo sano', hint: 'Indispensabile per vivere e crescere in salute', isRight: true, reason: 'È un Diritto Fondamentale (Art. 24): ogni bambino ha diritto ad acqua potabile e alimentazione adeguata.' },
+        { emoji: '📱', title: 'L’ultimo modello di smartphone', hint: 'Un telefono appena uscito nei negozi', isRight: false, reason: 'È un Desiderio personale: avere un cellulare di ultima generazione non è un bisogno universale.' },
+        { emoji: '🎒', title: 'Andare a scuola e imparare', hint: 'Ricevere un’istruzione gratuita e di qualità', isRight: true, reason: 'È un Diritto Fondamentale (Art. 28): l’istruzione apre le porte del futuro a tutti i ragazzi.' },
+        { emoji: '👟', title: 'Scarpe da ginnastica firmate', hint: 'Un paio di sneakers costose di moda', isRight: false, reason: 'È un Desiderio: avere vestiti dignitosi è un diritto (Art. 27), ma la marca di lusso è un desiderio!' },
+        { emoji: '⚽', title: 'Tempo per giocare e riposare', hint: 'Spazi sicuri per il gioco e il tempo libero', isRight: true, reason: 'È un Diritto Fondamentale (Art. 31): giocare e riposare è essenziale per lo sviluppo di ogni bambino.' },
+        { emoji: '🎮', title: 'Console videogiochi di ultima generazione', hint: 'Una console per giocare ai titoli più nuovi', isRight: false, reason: 'È un Desiderio: è bello riceverla in regalo, ma non è indispensabile per i diritti umani.' },
+        { emoji: '🫂', title: 'Protezione da ogni violenza', hint: 'Crescere al sicuro da maltrattamenti e bullismo', isRight: true, reason: 'È un Diritto Fondamentale (Art. 19): nessun bambino deve mai subire violenze fisiche o morali.' },
+        { emoji: '🪪', title: 'Avere un nome e una nazionalità', hint: 'Essere registrati alla nascita e riconosciuti', isRight: true, reason: 'È un Diritto Fondamentale (Art. 7): il nome e la cittadinanza sono la base della tua identità.' },
+        { emoji: '📺', title: 'Una TV gigante in camera propria', hint: 'Uno schermo personale solo per sé', isRight: false, reason: 'È un Desiderio: avere una casa sicura è un diritto (Art. 27), la TV personale in camera è un extra.' },
+        { emoji: '📣', title: 'Esprimere la propria opinione', hint: 'Essere ascoltati dagli adulti nelle scelte che ci riguardano', isRight: true, reason: 'È un Diritto Fondamentale (Art. 12): la tua voce conta e merita sempre attenzione!' }
+      ];
+
+      let sortIdx = 0; let sortScore = 0; let sortLocked = false;
+
+      function renderSortCard() {
+        sortLocked = false;
+        const item = sortingCards[sortIdx];
+        document.getElementById('sort-counter-text').textContent = `Carta ${sortIdx + 1} / ${sortingCards.length}`;
+        document.getElementById('sort-card-emoji').textContent = item.emoji;
+        document.getElementById('sort-card-title').textContent = item.title;
+        document.getElementById('sort-card-hint').textContent = item.hint;
+        document.getElementById('sort-feedback').classList.add('hidden');
+        document.getElementById('sort-buttons-row').classList.remove('opacity-50', 'pointer-events-none');
+      }
+
+      function handleSortChoice(choseRight) {
+        if (sortLocked) return;
+        sortLocked = true;
+        const item = sortingCards[sortIdx];
+        const correct = choseRight === item.isRight;
+        document.getElementById('sort-buttons-row').classList.add('opacity-50', 'pointer-events-none');
+        const fb = document.getElementById('sort-feedback');
+        fb.classList.remove('hidden', 'bg-softmint', 'border-mint', 'bg-softcoral', 'border-coral');
+
+        if (correct) {
+          sortScore++;
+          document.getElementById('sort-score-badge').textContent = `⭐ Punti: ${sortScore}`;
+          playChime('success');
+          fb.classList.add('bg-softmint', 'border-mint');
+          document.getElementById('sort-feedback-title').textContent = '✅ Esatto!';
+        } else {
+          playChime('gentle');
+          fb.classList.add('bg-softcoral', 'border-coral');
+          document.getElementById('sort-feedback-title').textContent = '🤔 Attenzione alla differenza!';
+        }
+        document.getElementById('sort-feedback-desc').textContent = item.reason;
+        document.getElementById('sort-next-btn').textContent = sortIdx < sortingCards.length - 1 ? 'Carta Successiva →' : 'Vedi Risultato Finale 🌟';
+      }
+
+      document.getElementById('btn-choose-right').addEventListener('click', () => handleSortChoice(true));
+      document.getElementById('btn-choose-wish').addEventListener('click', () => handleSortChoice(false));
+
+      document.getElementById('sort-next-btn').addEventListener('click', () => {
+        if (sortIdx < sortingCards.length - 1) { sortIdx++; renderSortCard(); }
+        else {
+          document.getElementById('sort-play-area').classList.add('hidden');
+          document.getElementById('sort-result-area').classList.remove('hidden');
+          document.getElementById('sort-final-score').textContent = `Hai classificato correttamente ${sortScore} carte su ${sortingCards.length}!`;
+          if (sortScore >= 7) { playChime('fanfare'); launchConfetti(); }
+        }
+      });
+
+      document.getElementById('sort-restart-btn').addEventListener('click', () => {
+        sortIdx = 0; sortScore = 0;
+        document.getElementById('sort-score-badge').textContent = '⭐ Punti: 0';
+        document.getElementById('sort-result-area').classList.add('hidden');
+        document.getElementById('sort-play-area').classList.remove('hidden');
+        renderSortCard();
+      });
+
+      document.getElementById('sort-read-card-btn').addEventListener('click', () => {
+        const item = sortingCards[sortIdx];
+        if (item) speakItalianText(item.title, `${item.title}. ${item.hint}. Secondo te è un Diritto Fondamentale oppure un Desiderio Personale?`);
+      });
+
+      renderSortCard();
+
+      const memoryPairsData = [
+        { pairId: 'art7', icon: '🪪', label: 'Art. 7 • Nome e Identità', color: 'bg-softblue border-unicef' },
+        { pairId: 'art12', icon: '📣', label: 'Art. 12 • Ascolto e Voce', color: 'bg-softyellow border-sunny' },
+        { pairId: 'art19', icon: '🛡️', label: 'Art. 19 • Protezione', color: 'bg-softcoral border-coral' },
+        { pairId: 'art24', icon: '🩺', label: 'Art. 24 • Salute e Cure', color: 'bg-softmint border-mint' },
+        { pairId: 'art28', icon: '🎒', label: 'Art. 28 • Scuola', color: 'bg-purple-100 border-purple-400' },
+        { pairId: 'art31', icon: '⚽', label: 'Art. 31 • Gioco e Riposo', color: 'bg-amber-100 border-amber-400' }
+      ];
+
+      let flippedCards = []; let matchedCount = 0; let memoryMoves = 0; let memoryLock = false;
+
+      function initMemoryGame() {
+        flippedCards = []; matchedCount = 0; memoryMoves = 0; memoryLock = false;
+        document.getElementById('memory-moves-badge').textContent = '👣 Mosse: 0';
+        document.getElementById('memory-pairs-badge').textContent = '🧩 Coppie: 0 / 6';
+        document.getElementById('memory-win-banner').classList.add('hidden');
+
+        const deck = [];
+        memoryPairsData.forEach(p => {
+          deck.push({ pairId: p.pairId, type: 'icon', content: p.icon, color: p.color });
+          deck.push({ pairId: p.pairId, type: 'text', content: p.label, color: p.color });
+        });
+
+        for (let i = deck.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [deck[i], deck[j]] = [deck[j], deck[i]];
+        }
+
+        const grid = document.getElementById('memory-grid');
+        grid.innerHTML = '';
+
+        deck.forEach((cardData, index) => {
+          const cardEl = document.createElement('button');
+          cardEl.type = 'button';
+          cardEl.className = 'memory-card memory-card-perspective h-28 sm:h-32 w-full focus:outline-none';
+          cardEl.dataset.pairId = cardData.pairId;
+          cardEl.dataset.index = String(index);
+          cardEl.setAttribute('aria-label', 'Carta coperta del Memory dei Diritti');
+
+          cardEl.innerHTML = `
+            <div class="memory-card-inner">
+              <div class="memory-card-front bg-gradient-to-br from-unicef to-sky-600 text-white border-3 border-navy/15 shadow-md flex flex-col items-center justify-center p-2">
+                <span class="text-2xl sm:text-3xl">🌟</span>
+                <span class="font-display font-bold text-xs mt-1 tracking-wide">ONU</span>
+              </div>
+              <div class="memory-card-back ${cardData.color} border-3 shadow-md flex flex-col items-center justify-center p-2.5 text-center">
+                ${cardData.type === 'icon' ? `<span class="text-4xl sm:text-5xl">${cardData.content}</span>` : `<span class="font-display font-bold text-xs sm:text-sm text-navy leading-tight">${cardData.content}</span>`}
+              </div>
+            </div>
+          `;
+          cardEl.addEventListener('click', () => handleMemoryFlip(cardEl));
+          grid.appendChild(cardEl);
+        });
+      }
+
+      function handleMemoryFlip(cardEl) {
+        if (memoryLock || cardEl.classList.contains('flipped') || cardEl.classList.contains('matched')) return;
+        playChime('tap');
+        cardEl.classList.add('flipped');
+        flippedCards.push(cardEl);
+
+        if (flippedCards.length === 2) {
+          memoryLock = true;
+          memoryMoves++;
+          document.getElementById('memory-moves-badge').textContent = `👣 Mosse: ${memoryMoves}`;
+          const [first, second] = flippedCards;
+          if (first.dataset.pairId === second.dataset.pairId) {
+            setTimeout(() => {
+              first.classList.add('matched'); second.classList.add('matched');
+              flippedCards = []; memoryLock = false; matchedCount++;
+              document.getElementById('memory-pairs-badge').textContent = `🧩 Coppie: ${matchedCount} / 6`;
+              playChime('success');
+              if (matchedCount === memoryPairsData.length) {
+                playChime('fanfare'); launchConfetti();
+                document.getElementById('memory-win-stats').textContent = `Hai completato il Memory in ${memoryMoves} mosse!`;
+                document.getElementById('memory-win-banner').classList.remove('hidden');
+              }
+            }, 400);
+          } else {
+            setTimeout(() => {
+              first.classList.remove('flipped'); second.classList.remove('flipped');
+              flippedCards = []; memoryLock = false;
+            }, 900);
+          }
+        }
+      }
+
+      document.getElementById('memory-reset-btn').addEventListener('click', initMemoryGame);
+      document.getElementById('memory-play-again-btn').addEventListener('click', initMemoryGame);
+      initMemoryGame();
+
+      const avatarEmojis = { esploratore: '🧭', artista: '🎨', scienziata: '🔬', sportiva: '⚽', musicista: '🎸', eco: '🌱' };
+      const certNameInput = document.getElementById('cert-name-input');
+      const certRightSelect = document.getElementById('cert-right-select');
+      const certPreviewName = document.getElementById('cert-preview-name');
+      const certPreviewRight = document.getElementById('cert-preview-right');
+      const certPreviewAvatar = document.getElementById('cert-preview-avatar');
+
+      try {
+        document.getElementById('cert-preview-date').textContent = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' });
+      } catch (e) {}
+
+      certNameInput.addEventListener('input', (e) => { certPreviewName.textContent = e.target.value.trim() || 'Giovane Esploratore/trice'; });
+      certRightSelect.addEventListener('change', (e) => { playChime('tap'); certPreviewRight.textContent = e.target.value; });
+
+      document.querySelectorAll('.avatar-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          playChime('tap');
+          document.querySelectorAll('.avatar-btn').forEach(b => {
+            b.classList.remove('active', 'border-unicef', 'bg-softblue');
+            b.classList.add('border-navy/15', 'bg-cream');
+          });
+          btn.classList.add('active', 'border-unicef', 'bg-softblue');
+          btn.classList.remove('border-navy/15', 'bg-cream');
+          certPreviewAvatar.textContent = avatarEmojis[btn.dataset.avatar] || '🧭';
+        });
+      });
+
+      document.getElementById('celebrate-cert-btn').addEventListener('click', () => {
+        const nameVal = certNameInput.value.trim();
+        if (!nameVal) {
+          certNameInput.focus();
+          showToast('Scrivi prima il tuo nome (o quello della classe) per personalizzare l’attestato!', '✍️');
+          return;
+        }
+        playChime('fanfare');
+        launchConfetti();
+        showToast(`Complimenti ${nameVal}! Il tuo Attestato è pronto!`, '🏅');
+      });
+
+      document.getElementById('read-cert-btn').addEventListener('click', () => {
+        const nameVal = certNameInput.value.trim() || 'Giovane Esploratore';
+        const rightVal = certRightSelect.value;
+        speakItalianText('Attestato Ufficiale', `Attestato Ufficiale di Giovane Difensore dei Diritti. Si certifica con orgoglio che ${nameVal} ha esplorato la Convenzione ONU sui diritti dell’infanzia e dell’adolescenza, impegnandosi a conoscere, rispettare e difendere i diritti di tutti i bambini e i ragazzi, a partire da: ${rightVal}.`);
+      });
+
+      document.getElementById('print-cert-btn').addEventListener('click', () => {
+        const nameVal = certNameInput.value.trim();
+        if (!nameVal) {
+          certNameInput.focus();
+          showToast('Suggerimento: scrivi il tuo nome prima di stampare l’attestato!', '✍️');
+        }
+        try {
+          window.focus();
+          setTimeout(() => {
+            window.print();
+          }, 150);
+        } catch (e) {
+          showToast('Usa la funzione Stampa del browser (Ctrl+P / Cmd+P) per salvare il diploma in PDF.', '🖨️');
+        }
+      });
+
+      const confettiCanvas = document.getElementById('confetti-canvas');
+      const ctx = confettiCanvas.getContext('2d');
+      let confettiPieces = [];
+      let confettiAnimId = null;
+
+      function resizeConfettiCanvas() {
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeConfettiCanvas);
+      resizeConfettiCanvas();
+
+      function launchConfetti() {
+        const colors = ['#E2231A', '#00AEEF', '#FFD166', '#06D6A0', '#1D3557'];
+        confettiPieces = [];
+        for (let i = 0; i < 120; i++) {
+          confettiPieces.push({
+            x: Math.random() * confettiCanvas.width,
+            y: Math.random() * -confettiCanvas.height * 0.5 - 20,
+            w: Math.random() * 10 + 6,
+            h: Math.random() * 6 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            vy: Math.random() * 4 + 2.5,
+            vx: (Math.random() - 0.5) * 3,
+            angle: Math.random() * 360,
+            spin: (Math.random() - 0.5) * 10
+          });
+        }
+        if (confettiAnimId) cancelAnimationFrame(confettiAnimId);
+        animateConfetti();
+      }
+
+      function animateConfetti() {
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        let activeCount = 0;
+        confettiPieces.forEach(p => {
+          p.y += p.vy; p.x += p.vx; p.angle += p.spin;
+          if (p.y < confettiCanvas.height + 30) {
+            activeCount++;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.angle * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+            ctx.restore();
+          }
+        });
+        if (activeCount > 0) confettiAnimId = requestAnimationFrame(animateConfetti);
+        else ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+    });
+  </script>
+</body>
+</html>
